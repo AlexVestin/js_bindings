@@ -257,9 +257,8 @@ class EncodedVideoChunkMetadata {
 }
 
 extension PropsEncodedVideoChunkMetadata on EncodedVideoChunkMetadata {
-  VideoDecoderConfig get decoderConfig =>
-      js_util.getProperty(this, 'decoderConfig');
-  set decoderConfig(VideoDecoderConfig newValue) {
+  VideoDecoderConfig? get decoderConfig => js_util.getProperty(this, 'decoderConfig');
+  set decoderConfig(VideoDecoderConfig? newValue) {
     js_util.setProperty(this, 'decoderConfig', newValue);
   }
 
@@ -405,7 +404,7 @@ extension PropsAudioDecoderConfig on AudioDecoderConfig {
 @JS()
 @staticInterop
 class VideoDecoderConfig {
-  external factory VideoDecoderConfig._(
+  external factory VideoDecoderConfig(
       {required String codec,
       dynamic description,
       int? codedWidth,
@@ -416,27 +415,28 @@ class VideoDecoderConfig {
       String? hardwareAcceleration,
       bool? optimizeForLatency});
 
-  factory VideoDecoderConfig(
-          {required String codec,
-          dynamic description,
-          int? codedWidth,
-          int? codedHeight,
-          int? displayAspectWidth,
-          int? displayAspectHeight,
-          VideoColorSpaceInit? colorSpace,
-          HardwareAcceleration? hardwareAcceleration,
-          bool? optimizeForLatency}) =>
-      VideoDecoderConfig._(
-          codec: codec,
-          description: description ?? undefined,
-          codedWidth: codedWidth ?? undefined,
-          codedHeight: codedHeight ?? undefined,
-          displayAspectWidth: displayAspectWidth ?? undefined,
-          displayAspectHeight: displayAspectHeight ?? undefined,
-          colorSpace: colorSpace ?? undefined,
-          hardwareAcceleration: hardwareAcceleration?.value ??
-              HardwareAcceleration.noPreference.value,
-          optimizeForLatency: optimizeForLatency ?? undefined);
+  // factory VideoDecoderConfig.make(
+  //         {required String codec,
+  //         dynamic description,
+  //         int? codedWidth,
+  //         int? codedHeight,
+  //         int? displayAspectWidth,
+  //         int? displayAspectHeight,
+  //         VideoColorSpaceInit? colorSpace,
+  //         HardwareAcceleration? hardwareAcceleration,
+  //         bool? optimizeForLatency}) {
+  //     return VideoDecoderConfig(
+  //         codec: codec,
+  //         description: description ?? undefined,
+  //         codedWidth: codedWidth ?? undefined,
+  //         codedHeight: codedHeight ?? undefined,
+  //         displayAspectWidth: displayAspectWidth ?? undefined,
+  //         displayAspectHeight: displayAspectHeight ?? undefined,
+  //         colorSpace: colorSpace ?? undefined,
+  //         hardwareAcceleration: hardwareAcceleration?.value ??
+  //             HardwareAcceleration.noPreference.value,
+  //         optimizeForLatency: optimizeForLatency ?? undefined);
+  // }
 }
 
 extension PropsVideoDecoderConfig on VideoDecoderConfig {
@@ -527,7 +527,7 @@ extension PropsAudioEncoderConfig on AudioEncoderConfig {
 @JS()
 @staticInterop
 class VideoEncoderConfig {
-  external factory VideoEncoderConfig._(
+  external factory VideoEncoderConfig(
       {required String codec,
       required int width,
       required int height,
@@ -539,35 +539,38 @@ class VideoEncoderConfig {
       String? alpha,
       String? scalabilityMode,
       String? bitrateMode,
-      String? latencyMode});
+      String? latencyMode,
+      dynamic avc,});
 
-  factory VideoEncoderConfig(
-          {required String codec,
-          required int width,
-          required int height,
-          int? displayWidth,
-          int? displayHeight,
-          int? bitrate,
-          double? framerate,
-          HardwareAcceleration? hardwareAcceleration,
-          AlphaOption? alpha,
-          String? scalabilityMode,
-          BitrateMode? bitrateMode,
-          LatencyMode? latencyMode}) =>
-      VideoEncoderConfig._(
-          codec: codec,
-          width: width,
-          height: height,
-          displayWidth: displayWidth ?? undefined,
-          displayHeight: displayHeight ?? undefined,
-          bitrate: bitrate ?? undefined,
-          framerate: framerate ?? undefined,
-          hardwareAcceleration: hardwareAcceleration?.value ??
-              HardwareAcceleration.noPreference.value,
-          alpha: alpha?.value ?? AlphaOption.discard.value,
-          scalabilityMode: scalabilityMode ?? undefined,
-          bitrateMode: bitrateMode?.value ?? BitrateMode.variable.value,
-          latencyMode: latencyMode?.value ?? LatencyMode.quality.value);
+  // factory VideoEncoderConfig(
+  //         {required String codec,
+  //         required int width,
+  //         required int height,
+  //         int? displayWidth,
+  //         int? displayHeight,
+  //         int? bitrate,
+  //         double? framerate,
+  //         HardwareAcceleration? hardwareAcceleration,
+  //         AlphaOption? alpha,
+  //         String? scalabilityMode,
+  //         BitrateMode? bitrateMode,
+  //         LatencyMode? latencyMode,
+  //         dynamic avc,}) =>
+      // VideoEncoderConfig._(
+      //     codec: codec,
+      //     width: width,
+      //     height: height,
+      //     displayWidth: displayWidth ?? undefined,
+      //     displayHeight: displayHeight ?? undefined,
+      //     bitrate: bitrate ?? undefined,
+      //     framerate: framerate ?? undefined,
+      //     hardwareAcceleration: hardwareAcceleration?.value ??
+      //         HardwareAcceleration.noPreference.value,
+      //     alpha: alpha?.value ?? AlphaOption.discard.value,
+      //     scalabilityMode: scalabilityMode ?? undefined,
+      //     bitrateMode: bitrateMode?.value ?? BitrateMode.variable.value,
+      //     latencyMode: latencyMode?.value ?? LatencyMode.quality.value,
+      //     avc: avc);
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
@@ -606,11 +609,9 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
     js_util.setProperty(this, 'framerate', newValue);
   }
 
-  HardwareAcceleration get hardwareAcceleration =>
-      HardwareAcceleration.fromValue(
-          js_util.getProperty(this, 'hardwareAcceleration'));
-  set hardwareAcceleration(HardwareAcceleration newValue) {
-    js_util.setProperty(this, 'hardwareAcceleration', newValue.value);
+  String get hardwareAcceleration => js_util.getProperty(this, 'hardwareAcceleration');
+  set hardwareAcceleration(String newValue) {
+    js_util.setProperty(this, 'hardwareAcceleration', newValue);
   }
 
   AlphaOption get alpha =>
@@ -678,10 +679,10 @@ enum LatencyMode {
 @JS()
 @staticInterop
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions._({bool? keyFrame});
+  external factory VideoEncoderEncodeOptions({bool? keyFrame});
 
-  factory VideoEncoderEncodeOptions({bool? keyFrame}) =>
-      VideoEncoderEncodeOptions._(keyFrame: keyFrame ?? false);
+  // factory VideoEncoderEncodeOptions({bool? keyFrame}) =>
+  //     VideoEncoderEncodeOptions._(keyFrame: keyFrame ?? false);
 }
 
 extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
@@ -788,8 +789,7 @@ class EncodedVideoChunk {
 }
 
 extension PropsEncodedVideoChunk on EncodedVideoChunk {
-  EncodedVideoChunkType get type =>
-      EncodedVideoChunkType.fromValue(js_util.getProperty(this, 'type'));
+  String get type => js_util.getProperty(this, 'type');
   int get timestamp => js_util.getProperty(this, 'timestamp');
   int? get duration => js_util.getProperty(this, 'duration');
   int get byteLength => js_util.getProperty(this, 'byteLength');
@@ -801,22 +801,22 @@ extension PropsEncodedVideoChunk on EncodedVideoChunk {
 @JS()
 @staticInterop
 class EncodedVideoChunkInit {
-  external factory EncodedVideoChunkInit._(
+  external factory EncodedVideoChunkInit(
       {required String type,
       required int timestamp,
       int? duration,
       dynamic data});
 
-  factory EncodedVideoChunkInit(
-          {required EncodedVideoChunkType type,
-          required int timestamp,
-          int? duration,
-          dynamic data}) =>
-      EncodedVideoChunkInit._(
-          type: type.value,
-          timestamp: timestamp,
-          duration: duration ?? undefined,
-          data: data ?? undefined);
+//   factory EncodedVideoChunkInit(
+//           {required EncodedVideoChunkType type,
+//           required int timestamp,
+//           int? duration,
+//           dynamic data}) =>
+//       EncodedVideoChunkInit._(
+//           type: type.value,
+//           timestamp: timestamp,
+//           duration: duration ?? undefined,
+//           data: data ?? undefined);
 }
 
 extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
@@ -1013,10 +1013,11 @@ enum AudioSampleFormat {
 @JS()
 @staticInterop
 class VideoFrame {
-  external factory VideoFrame._(dynamic image, [VideoFrameInit? init]);
-
-  factory VideoFrame(dynamic image, [VideoFrameInit? init]) =>
-      VideoFrame._(image ?? undefined, init ?? undefined);
+  external factory VideoFrame(Object image, [VideoFrameInit init]);
+  // external factory VideoFrame(dynamic image, [VideoFrameBufferInit? init]);
+  //
+  // factory VideoFrame(dynamic image, [dynamic? init]) =>
+  //     VideoFrame._(image ?? undefined, init ?? undefined);
 }
 
 extension PropsVideoFrame on VideoFrame {
@@ -1052,7 +1053,7 @@ extension PropsVideoFrame on VideoFrame {
 @JS()
 @staticInterop
 class VideoFrameInit {
-  external factory VideoFrameInit._(
+  external factory VideoFrameInit(
       {int? duration,
       int? timestamp,
       String? alpha,
@@ -1060,20 +1061,20 @@ class VideoFrameInit {
       int? displayWidth,
       int? displayHeight});
 
-  factory VideoFrameInit(
-          {int? duration,
-          int? timestamp,
-          AlphaOption? alpha,
-          DOMRectInit? visibleRect,
-          int? displayWidth,
-          int? displayHeight}) =>
-      VideoFrameInit._(
-          duration: duration ?? undefined,
-          timestamp: timestamp ?? undefined,
-          alpha: alpha?.value ?? AlphaOption.keep.value,
-          visibleRect: visibleRect ?? undefined,
-          displayWidth: displayWidth ?? undefined,
-          displayHeight: displayHeight ?? undefined);
+  // factory VideoFrameInit(
+  //         {int? duration,
+  //         int? timestamp,
+  //         AlphaOption? alpha,
+  //         DOMRectInit? visibleRect,
+  //         int? displayWidth,
+  //         int? displayHeight}) =>
+      // VideoFrameInit._(
+      //     duration: duration ?? undefined,
+      //     timestamp: timestamp ?? undefined,
+      //     alpha: alpha?.value ?? AlphaOption.keep.value,
+      //     visibleRect: visibleRect ?? undefined,
+      //     displayWidth: displayWidth ?? undefined,
+      //     displayHeight: displayHeight ?? undefined);
 }
 
 extension PropsVideoFrameInit on VideoFrameInit {
@@ -1113,7 +1114,7 @@ extension PropsVideoFrameInit on VideoFrameInit {
 @JS()
 @staticInterop
 class VideoFrameBufferInit {
-  external factory VideoFrameBufferInit._(
+  external factory VideoFrameBufferInit(
       {required String format,
       required int codedWidth,
       required int codedHeight,
@@ -1125,28 +1126,28 @@ class VideoFrameBufferInit {
       int? displayHeight,
       VideoColorSpaceInit? colorSpace});
 
-  factory VideoFrameBufferInit(
-          {required VideoPixelFormat format,
-          required int codedWidth,
-          required int codedHeight,
-          required int timestamp,
-          int? duration,
-          Iterable<PlaneLayout>? layout,
-          DOMRectInit? visibleRect,
-          int? displayWidth,
-          int? displayHeight,
-          VideoColorSpaceInit? colorSpace}) =>
-      VideoFrameBufferInit._(
-          format: format.value,
-          codedWidth: codedWidth,
-          codedHeight: codedHeight,
-          timestamp: timestamp,
-          duration: duration ?? undefined,
-          layout: layout ?? undefined,
-          visibleRect: visibleRect ?? undefined,
-          displayWidth: displayWidth ?? undefined,
-          displayHeight: displayHeight ?? undefined,
-          colorSpace: colorSpace ?? undefined);
+  // factory VideoFrameBufferInit(
+  //         {required VideoPixelFormat format,
+  //         required int codedWidth,
+  //         required int codedHeight,
+  //         required int timestamp,
+  //         int? duration,
+  //         Iterable<PlaneLayout>? layout,
+  //         DOMRectInit? visibleRect,
+  //         int? displayWidth,
+  //         int? displayHeight,
+  //         VideoColorSpaceInit? colorSpace}) =>
+  //     VideoFrameBufferInit._(
+  //         format: format.value,
+  //         codedWidth: codedWidth,
+  //         codedHeight: codedHeight,
+  //         timestamp: timestamp,
+  //         duration: duration ?? undefined,
+  //         layout: layout ?? undefined,
+  //         visibleRect: visibleRect ?? undefined,
+  //         displayWidth: displayWidth ?? undefined,
+  //         displayHeight: displayHeight ?? undefined,
+  //         colorSpace: colorSpace ?? undefined);
 }
 
 extension PropsVideoFrameBufferInit on VideoFrameBufferInit {

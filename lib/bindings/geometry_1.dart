@@ -261,19 +261,19 @@ extension PropsDOMRect on DOMRect {
 @JS()
 @staticInterop
 class DOMRectInit {
-  external factory DOMRectInit._(
+  external factory DOMRectInit(
       {/* double | NaN */ dynamic x,
       /* double | NaN */ dynamic y,
       /* double | NaN */ dynamic width,
       /* double | NaN */ dynamic height});
 
-  factory DOMRectInit(
-          {/* double | NaN */ dynamic x,
-          /* double | NaN */ dynamic y,
-          /* double | NaN */ dynamic width,
-          /* double | NaN */ dynamic height}) =>
-      DOMRectInit._(
-          x: x ?? 0, y: y ?? 0, width: width ?? 0, height: height ?? 0);
+  // factory DOMRectInit(
+  //         {/* double | NaN */ dynamic x,
+  //         /* double | NaN */ dynamic y,
+  //         /* double | NaN */ dynamic width,
+  //         /* double | NaN */ dynamic height}) =>
+  //     DOMRectInit._(
+  //         x: x ?? 0, y: y ?? 0, width: width ?? 0, height: height ?? 0);
 }
 
 extension PropsDOMRectInit on DOMRectInit {
