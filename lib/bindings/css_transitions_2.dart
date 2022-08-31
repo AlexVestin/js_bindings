@@ -13,6 +13,30 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Web Animations API represents an
+/// [Animation] object used for a CSS Transition.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Animation
+///
+///
+///
+///
+///
+///
+///
+///    CSSTransition
+///
+///
 @JS()
 @staticInterop
 class CSSTransition implements Animation {

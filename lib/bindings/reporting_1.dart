@@ -1,4 +1,4 @@
-/// Reporting API 1
+/// Reporting API
 ///
 /// https://w3c.github.io/reporting/
 
@@ -10,9 +10,17 @@ library reporting_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Reporting API represents the body of a
+/// report. Individual report types inherit from this interface,
+/// adding specific attributes relevant to the particular report.
+@experimental
 @JS()
 @staticInterop
 class ReportBody {
@@ -23,6 +31,23 @@ extension PropsReportBody on ReportBody {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+/// The interface of the Reporting API represents a single report.
+/// Reports can be accessed in a number of ways:
+///
+///   Via the [ReportingObserver.takeRecords()] method — this returns
+/// all reports in an observer's report queue, and then empties the
+/// queue.
+///   Via the [reports] parameter of the callback function passed
+/// into the [ReportingObserver()] constructor upon creation of a new
+/// observer instance. This contains the list of reports currently
+/// contained in the observer's report queue.
+///   By sending requests to the endpoints defined via the
+/// [Report-To] HTTP header.
+///
+@experimental
 @JS()
 @staticInterop
 class Report {
@@ -37,6 +62,12 @@ extension PropsReport on Report {
   ReportBody? get body => js_util.getProperty(this, 'body');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Reporting API allows you to collect and
+/// access reports.
+@experimental
 @JS()
 @staticInterop
 class ReportingObserver {
@@ -45,13 +76,19 @@ class ReportingObserver {
 }
 
 extension PropsReportingObserver on ReportingObserver {
-  Object observe() => js_util.callMethod(this, 'observe', []);
+  void observe() => js_util.callMethod(this, 'observe', []);
 
-  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
+  void disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   Iterable<Report> takeRecords() => js_util.callMethod(this, 'takeRecords', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The dictionary of the Reporting API allows options to be set in
+/// the constructor when creating a [ReportingObserver].
+@experimental
 @anonymous
 @JS()
 @staticInterop

@@ -10,10 +10,33 @@ library geometry_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface specifies the coordinate and perspective fields
+/// used by [DOMPoint] to define a 2D or 3D point in a coordinate
+/// system.
+///  Note: This feature is available in Web Workers
+///
+///  There are two ways to create a new instance. First, you can use
+/// its constructor, passing in the values of the parameters for each
+/// dimension and, optionally, the perspective:
+/// [/* 2D */
+/// const point2D = new DOMPointReadOnly(50, 50);
+///
+/// /* 3D */
+/// const point3D = new DOMPointReadOnly(50, 50, 25);
+///
+/// /* 3D with perspective */
+///  const point3DPerspective = new DOMPointReadOnly(100, 100, 100,
+/// 1.0);
+/// ]
+///  The other option is to use the static
+/// [DOMPointReadOnly.fromPoint()] method:
+///  [const point = DOMPointReadOnly.fromPoint({x: 100, y: 100, z:
+/// 50, w: 1.0});
+/// ]
 @JS()
 @staticInterop
 class DOMPointReadOnly {
@@ -38,6 +61,29 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///  A object represents a 2D or 3D point in a coordinate system; it
+/// includes values for the coordinates in up to three dimensions, as
+/// well as an optional perspective value. is based on
+/// [DOMPointReadOnly] but allows its properties' values to be
+/// changed.
+///  In general, a positive [x] component represents a position to
+/// the right of the origin, a positive [y] component is downward
+/// from the origin, and a positive [z] component extends outward
+/// from the screen (in other words, toward the user).
+///
+///
+///
+///    DOMPointReadOnly
+///
+///
+///
+///
+///
+///
+///
+///    DOMPoint
+///
+///
 @JS()
 @staticInterop
 class DOMPoint implements DOMPointReadOnly {
@@ -106,6 +152,8 @@ extension PropsDOMPointInit on DOMPointInit {
   }
 }
 
+///  The interface specifies the standard properties used by
+/// [DOMRect] to define a rectangle whose properties are immutable.
 @JS()
 @staticInterop
 class DOMRectReadOnly {
@@ -131,6 +179,27 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+/// A describes the size and position of a rectangle.
+///  The type of box represented by the is specified by the method or
+/// property that returned it. For example,
+/// [VREyeParameters.renderRect] from the WebVR API specifies the
+/// viewport of a canvas into which visuals for one eye of a head
+/// mounted display should be rendered.
+/// It inherits from its parent, [DOMRectReadOnly].
+///
+///
+///
+///    DOMRectReadOnly
+///
+///
+///
+///
+///
+///
+///
+///    DOMRect
+///
+///
 @JS()
 @staticInterop
 class DOMRect implements DOMRectReadOnly {
@@ -210,6 +279,12 @@ extension PropsDOMRectList on DOMRectList {
   DOMRect? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
+///  A is a collection of four [DOMPoint]s defining the corners of an
+/// arbitrary quadrilateral. Returning s lets [getBoxQuads()] return
+/// accurate information even when arbitrary 2D or 3D transforms are
+/// present. It has a handy [bounds] attribute returning a
+/// [DOMRectReadOnly] for those cases where you just want an
+/// axis-aligned bounding rectangle.
 @JS()
 @staticInterop
 class DOMQuad {
@@ -266,6 +341,12 @@ extension PropsDOMQuadInit on DOMQuadInit {
   }
 }
 
+///  The interface represents a read-only 4×4 matrix, suitable for 2D
+/// and 3D operations. The [DOMMatrix] interface — which is based
+/// upon —adds mutability, allowing you to alter the matrix after
+/// creating it.
+///  This interface should be available inside web workers, though
+/// some implementations doesn't allow it yet.
 @JS()
 @staticInterop
 class DOMMatrixReadOnly {
@@ -381,6 +462,27 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///  The interface represents 4×4 matrices, suitable for 2D and 3D
+/// operations including rotation and translation. It is a mutable
+/// version of the [DOMMatrixReadOnly] interface.
+/// [WebKitCSSMatrix] is an alias to .
+///  This interface should be available inside web workers, though
+/// some implementations don't allow it yet.
+///
+///
+///
+///    DOMMatrixReadOnly
+///
+///
+///
+///
+///
+///
+///
+///    DOMMatrix
+///
+///
+@experimental
 @JS()
 @staticInterop
 class DOMMatrix implements DOMMatrixReadOnly {

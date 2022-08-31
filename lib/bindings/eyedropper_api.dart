@@ -10,6 +10,7 @@ library eyedropper_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -41,6 +42,15 @@ extension PropsColorSelectionOptions on ColorSelectionOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents an instance of an eyedropper tool that
+/// can be opened and used by the user to select colors from the
+/// screen.
+@experimental
 @JS()
 @staticInterop
 class EyeDropper {

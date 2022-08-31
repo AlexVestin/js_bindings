@@ -14,6 +14,33 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Fetch API allows you to perform various
+/// actions on HTTP request and response headers. These actions
+/// include retrieving, setting, adding to, and removing headers from
+/// the list of the request's headers.
+///  A object has an associated header list, which is initially empty
+/// and consists of zero or more name and value pairs. You can add to
+/// this using methods like [append()] (see Examples.) In all methods
+/// of this interface, header names are matched by case-insensitive
+/// byte sequence.
+///  For security reasons, some headers can only be controlled by the
+/// user agent. These headers include the forbidden header names and
+/// forbidden response header names.
+///  A Headers object also has an associated guard, which takes a
+/// value of [immutable], [request], [request-no-cors], [response],
+/// or [none]. This affects whether the [set()], [delete()], and
+/// [append()] methods will mutate the header. For more information
+/// see Guard.
+///  You can retrieve a object via the [Request.headers] and
+/// [Response.headers] properties, and create a new object using the
+/// [Headers()] constructor.
+///  An object implementing can directly be used in a [for...of]
+/// structure, instead of [entries()]: [for (const p of myHeaders)]
+/// is equivalent to [for (const p of myHeaders.entries())].
+///
+///   Note: you can find more out about the available headers by
+/// reading our HTTP headers reference.
+///
 @JS()
 @staticInterop
 class Headers {
@@ -21,10 +48,10 @@ class Headers {
 }
 
 extension PropsHeaders on Headers {
-  Object append(String name, String value) =>
+  void append(String name, String value) =>
       js_util.callMethod(this, 'append', [name, value]);
 
-  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
+  void delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
   @JS('get')
   @staticInterop
@@ -34,7 +61,7 @@ extension PropsHeaders on Headers {
 
   @JS('set')
   @staticInterop
-  Object mSet(String name, String value) =>
+  void mSet(String name, String value) =>
       js_util.callMethod(this, 'set', [name, value]);
 }
 
@@ -63,6 +90,11 @@ extension PropsBody on Body {
       js_util.promiseToFuture(js_util.callMethod(this, 'text', []));
 }
 
+/// The interface of the Fetch API represents a resource request.
+///  You can create a new object using the [Request()] constructor,
+/// but you are more likely to encounter a object being returned as
+/// the result of another API operation, such as a service worker
+/// [FetchEvent.request].
 @JS()
 @staticInterop
 class Request implements Body {
@@ -95,8 +127,8 @@ extension PropsRequest on Request {
   AbortSignal get signal => js_util.getProperty(this, 'signal');
   Request clone() => js_util.callMethod(this, 'clone', []);
 
-  Importance get importance =>
-      Importance.values.byName(js_util.getProperty(this, 'importance'));
+  FetchPriority get priority =>
+      FetchPriority.values.byName(js_util.getProperty(this, 'priority'));
 }
 
 @anonymous
@@ -116,6 +148,7 @@ class RequestInit {
       required String integrity,
       required bool keepalive,
       AbortSignal? signal,
+      required String duplex,
       dynamic window});
 
   factory RequestInit(
@@ -131,6 +164,7 @@ class RequestInit {
           required String integrity,
           required bool keepalive,
           AbortSignal? signal,
+          required RequestDuplex duplex,
           dynamic window}) =>
       RequestInit._(
           method: method,
@@ -145,6 +179,7 @@ class RequestInit {
           integrity: integrity,
           keepalive: keepalive,
           signal: signal,
+          duplex: duplex.name,
           window: window);
 }
 
@@ -214,6 +249,12 @@ extension PropsRequestInit on RequestInit {
     js_util.setProperty(this, 'signal', newValue);
   }
 
+  RequestDuplex get duplex =>
+      RequestDuplex.values.byName(js_util.getProperty(this, 'duplex'));
+  set duplex(RequestDuplex newValue) {
+    js_util.setProperty(this, 'duplex', newValue.name);
+  }
+
   dynamic get window => js_util.getProperty(this, 'window');
   set window(dynamic newValue) {
     js_util.setProperty(this, 'window', newValue);
@@ -258,6 +299,14 @@ enum RequestCache {
 
 enum RequestRedirect { follow, error, manual }
 
+enum RequestDuplex { half }
+
+///  The interface of the Fetch API represents the response to a
+/// request.
+///  You can create a new object using the [Response()] constructor,
+/// but you are more likely to encounter a object being returned as
+/// the result of another API operation—for example, a service worker
+/// [FetchEvent.respondWith], or a simple [fetch()].
 @JS()
 @staticInterop
 class Response implements Body {
@@ -269,6 +318,9 @@ extension PropsResponse on Response {
 
   static Response redirect(String url, [int? status = 302]) =>
       js_util.callMethod(Response, 'redirect', [url, status]);
+
+  static Response json(dynamic data, [ResponseInit? init]) =>
+      js_util.callMethod(Response, 'json', [data, init]);
 
   ResponseType get type =>
       ResponseType.values.byName(js_util.getProperty(this, 'type'));

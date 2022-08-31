@@ -10,10 +10,34 @@ library webxr;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The WebXR Device API interface provides methods which let you
+/// get access to an [XRSession] object representing a WebXR session.
+/// With that [XRSession] in hand, you can use it to interact with
+/// the Augmented Reality (AR) or Virtual Reality (VR) device.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSystem
+///
+///
+@experimental
 @JS()
 @staticInterop
 class XRSystem implements EventTarget {
@@ -64,6 +88,30 @@ extension PropsXRSessionInit on XRSessionInit {
 
 enum XRVisibilityState { visible, visibleBlurred, hidden }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The [WebXR Device API]'s interface represents an ongoing XR
+/// session, providing methods and properties used to interact with
+/// and control the session. To open a WebXR session, use the
+/// [XRSystem] interface's [requestSession()] method.
+///  With methods, you can poll the viewer's position and orientation
+/// (the [XRViewerPose]), gather information about the user's
+/// environment, and present imagery to the user. supports both
+/// inline and immersive virtual and augmented reality modes.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSession
+///
+///
 @JS()
 @staticInterop
 class XRSession implements EventTarget {
@@ -79,10 +127,10 @@ extension PropsXRSession on XRSession {
   XRRenderState get renderState => js_util.getProperty(this, 'renderState');
   XRInputSourceArray get inputSources =>
       js_util.getProperty(this, 'inputSources');
-  Object updateRenderState([XRRenderStateInit? state]) =>
+  void updateRenderState([XRRenderStateInit? state]) =>
       js_util.callMethod(this, 'updateRenderState', [state]);
 
-  Future<Object> updateTargetFrameRate(double rate) => js_util.promiseToFuture(
+  Future<void> updateTargetFrameRate(double rate) => js_util.promiseToFuture(
       js_util.callMethod(this, 'updateTargetFrameRate', [rate]));
 
   Future<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
@@ -92,10 +140,10 @@ extension PropsXRSession on XRSession {
   int requestAnimationFrame(XRFrameRequestCallback callback) => js_util
       .callMethod(this, 'requestAnimationFrame', [allowInterop(callback)]);
 
-  Object cancelAnimationFrame(int handle) =>
+  void cancelAnimationFrame(int handle) =>
       js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
 
-  Future<Object> end() =>
+  Future<void> end() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'end', []));
 
   EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
@@ -155,11 +203,15 @@ extension PropsXRSession on XRSession {
     js_util.setProperty(this, 'onframeratechange', newValue);
   }
 
-  XREnvironmentBlendMode get environmentBlendMode =>
-      XREnvironmentBlendMode.values
-          .byName(js_util.getProperty(this, 'environmentBlendMode'));
-  XRInteractionMode get interactionMode => XRInteractionMode.values
-      .byName(js_util.getProperty(this, 'interactionMode'));
+  Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestHitTestSource', [options]));
+
+  Future<XRTransientInputHitTestSource> requestHitTestSourceForTransientInput(
+          XRTransientInputHitTestOptionsInit options) =>
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'requestHitTestSourceForTransientInput', [options]));
+
   Future<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestLightProbe', [options]));
@@ -170,15 +222,11 @@ extension PropsXRSession on XRSession {
       XRDepthUsage.values.byName(js_util.getProperty(this, 'depthUsage'));
   XRDepthDataFormat get depthDataFormat => XRDepthDataFormat.values
       .byName(js_util.getProperty(this, 'depthDataFormat'));
-  Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestHitTestSource', [options]));
-
-  Future<XRTransientInputHitTestSource> requestHitTestSourceForTransientInput(
-          XRTransientInputHitTestOptionsInit options) =>
-      js_util.promiseToFuture(js_util.callMethod(
-          this, 'requestHitTestSourceForTransientInput', [options]));
-
+  XREnvironmentBlendMode get environmentBlendMode =>
+      XREnvironmentBlendMode.values
+          .byName(js_util.getProperty(this, 'environmentBlendMode'));
+  XRInteractionMode get interactionMode => XRInteractionMode.values
+      .byName(js_util.getProperty(this, 'interactionMode'));
   XRDOMOverlayState? get domOverlayState =>
       js_util.getProperty(this, 'domOverlayState');
 }
@@ -223,6 +271,20 @@ extension PropsXRRenderStateInit on XRRenderStateInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API contains configurable
+/// values which affect how the imagery generated by an [XRSession]
+/// gets composited. These properties include the range of distances
+/// from the viewer within which content should be rendered, the
+/// vertical field of view (for inline presentations), and a
+/// reference to the [XRWebGLLayer] being used as the target for
+/// rendering the scene prior to it being presented on the XR
+/// device's display or displays.
+///  When you apply changes using the [XRSession] method
+/// [updateRenderState()], the specified changes take effect after
+/// the current animation frame has completed, but before the next
+/// one begins.
 @JS()
 @staticInterop
 class XRRenderState {
@@ -238,6 +300,20 @@ extension PropsXRRenderState on XRRenderState {
   Iterable<XRLayer> get layers => js_util.getProperty(this, 'layers');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  A WebXR Device API object is passed into the
+/// [requestAnimationFrame()] callback function and provides access
+/// to the information needed in order to render a single frame of
+/// animation for an [XRSession] describing a VR or AR scene. Events
+/// which communicate the tracking state of objects also provide an
+/// reference as part of their structure.
+///  In addition to providing a reference to the [XRSession] for
+/// which this frame is to be rendered, the [getViewerPose()] method
+/// is provided to obtain the [XRViewerPose] describing the viewer's
+/// position and orientation in space, and [getPose()] can be used to
+/// create an [XRPose] describing the relative position of one
+/// [XRSpace] relative to another.
 @JS()
 @staticInterop
 class XRFrame {
@@ -254,13 +330,21 @@ extension PropsXRFrame on XRFrame {
   XRPose? getPose(XRSpace space, XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [space, baseSpace]);
 
-  XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
-      js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
+  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
+      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
+
+  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
+          XRTransientInputHitTestSource hitTestSource) =>
+      js_util.callMethod(
+          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
 
   Future<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) => js_util
       .promiseToFuture(js_util.callMethod(this, 'createAnchor', [pose, space]));
 
   XRAnchorSet get trackedAnchors => js_util.getProperty(this, 'trackedAnchors');
+  XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
+      js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
+
   XRCPUDepthInformation? getDepthInformation(XRView view) =>
       js_util.callMethod(this, 'getDepthInformation', [view]);
 
@@ -273,16 +357,39 @@ extension PropsXRFrame on XRFrame {
   bool fillPoses(Iterable<XRSpace> spaces, XRSpace baseSpace,
           Float32List transforms) =>
       js_util.callMethod(this, 'fillPoses', [spaces, baseSpace, transforms]);
-
-  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
-      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
-
-  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
-          XRTransientInputHitTestSource hitTestSource) =>
-      js_util.callMethod(
-          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is an abstract interface
+/// providing a common basis for every class which represents a
+/// virtual coordinate system within the virtual world, in which its
+/// origin corresponds to a physical location. Spatial data in WebXR
+/// is always expressed relative to an object based upon one of the
+/// descendant interfaces of , at the time at which a given [XRFrame]
+/// takes place.
+///  Numeric values such as pose positions are thus coordinates in
+/// the corresponding , relative to that space's origin.
+///
+///   Note: The interface is never used directly; instead, all spaces
+/// are created using one of the interfaces based on . At this time,
+/// those are [XRReferenceSpace], [XRBoundedReferenceSpace], and
+/// [XRJointSpace].
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSpace
+///
+///
 @JS()
 @staticInterop
 class XRSpace implements EventTarget {
@@ -291,6 +398,50 @@ class XRSpace implements EventTarget {
 
 enum XRReferenceSpaceType { viewer, local, localFloor, boundedFloor, unbounded }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API's interface describes the coordinate system
+/// for a specific tracked entity or object within the virtual world
+/// using a specified tracking behavior. The tracking behavior is
+/// defined by the selected reference space type. It expands upon the
+/// base class, [XRSpace], by adding support for several different
+/// tracking behaviors as well as to request a new reference space
+/// which describes the offset transform between the tracked object
+/// and another location in the world.
+///  All reference spaces—with the sole exception being bounded
+/// reference spaces—are described using the type. Bounded spaces are
+/// implemented as [XRBoundedReferenceSpace] objects. These are
+/// special spaces which let you establish a perimeter within which
+/// it's "safe" for the viewer to move. For XR systems that allow the
+/// user to physically move around, such as those that track movement
+/// with a real-world camera, this boundary establishes the edges of
+/// the area the user is able to move around in, whether due to
+/// physical obstacles or due to limitations of the XR hardware. See
+/// the article Using bounded reference spaces to protect the viewer
+/// for more on using boundaries to keep the user from colliding with
+/// obstacles both physical and virtual.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSpace
+///
+///
+///
+///
+///
+///
+///
+///    XRReferenceSpace
+///
+///
 @JS()
 @staticInterop
 class XRReferenceSpace implements XRSpace {
@@ -307,6 +458,58 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The WebXR Device API's interface describes a virtual world
+/// reference space which has preset boundaries. This extends
+/// [XRReferenceSpace], which describes an essentially unrestricted
+/// space around the viewer's position. These bounds are defined
+/// using an array of points, each of which defines a vertex in a
+/// polygon inside which the user is allowed to move.
+///  This is typically used when the XR system is capable of tracking
+/// the user's physical movement within a limited distance of their
+/// starting position. The specified bounds may, in fact, describe
+/// the shape and size of the room the user is located in, in order
+/// to let the WebXR site or application prevent the user from
+/// colliding with the walls or other obstacles in the real world. At
+/// a minimum, the boundaries indicate the area in which the XR
+/// device is capable of tracking the user's movement. See the
+/// article Using bounded reference spaces for details on how bounded
+/// spaces work and why they're useful.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSpace
+///
+///
+///
+///
+///
+///
+///
+///    XRReferenceSpace
+///
+///
+///
+///
+///
+///
+///
+///    XRBoundedReferenceSpace
+///
+///
+@experimental
 @JS()
 @staticInterop
 class XRBoundedReferenceSpace implements XRReferenceSpace {
@@ -320,6 +523,17 @@ extension PropsXRBoundedReferenceSpace on XRBoundedReferenceSpace {
 
 enum XREye { none, left, right }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API's interface describes a single view into
+/// the XR scene for a specific frame, providing orientation and
+/// position information for the viewpoint. You can think of it as a
+/// description of a specific eye or camera and how it views the
+/// world. A 3D frame will involve two views, one for each eye,
+/// separated by an appropriate distance which approximates the
+/// distance between the viewer's eyes. This allows the two views,
+/// when projected in isolation into the appropriate eyes, to
+/// simulate a 3D world.
 @JS()
 @staticInterop
 class XRView {
@@ -333,13 +547,18 @@ extension PropsXRView on XRView {
   XRRigidTransform get transform => js_util.getProperty(this, 'transform');
   double? get recommendedViewportScale =>
       js_util.getProperty(this, 'recommendedViewportScale');
-  Object requestViewportScale(double? scale) =>
+  void requestViewportScale(double? scale) =>
       js_util.callMethod(this, 'requestViewportScale', [scale]);
 
   bool get isFirstPersonObserver =>
       js_util.getProperty(this, 'isFirstPersonObserver');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API's interface provides properties used to
+/// describe the size and position of the current viewport within the
+/// [XRWebGLLayer] being used to render the 3D scene.
 @JS()
 @staticInterop
 class XRViewport {
@@ -353,6 +572,23 @@ extension PropsXRViewport on XRViewport {
   int get height => js_util.getProperty(this, 'height');
 }
 
+///  The is a WebXR API interface that represents the 3D geometric
+/// transform described by a position and orientation.
+///   is used to specify transforms throughout the WebXR APIs,
+/// including:
+///
+///   The offset and orientation relative to the parent reference
+/// space to use when creating a new reference space with
+/// [getOffsetReferenceSpace()].
+///  The [transform] of an [XRView].
+///  The [transform] of an [XRPose].
+///   The [XRReferenceSpaceEvent] event's [transform] property, as
+/// found in the [reset] event received by an [XRReferenceSpace].
+///
+///  Using in these places rather than bare arrays that provide the
+/// matrix data has an advantage. It automatically computes the
+/// inverse of the transform and even caches it making subsequent
+/// requests significantly faster.
 @JS()
 @staticInterop
 class XRRigidTransform {
@@ -367,6 +603,34 @@ extension PropsXRRigidTransform on XRRigidTransform {
   XRRigidTransform get inverse => js_util.getProperty(this, 'inverse');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///   is a WebXR API interface representing a position and
+/// orientation in the 3D space, relative to the [XRSpace] within
+/// which it resides. The [XRSpace]—which is either an
+/// [XRReferenceSpace] or an [XRBoundedReferenceSpace]—defines the
+/// coordinate system used for the pose and, in the case of an
+/// [XRViewerPose], its underlying views.
+///  To obtain the for the [XRSpace] used as the local coordinate
+/// system of an object, call [XRFrame.getPose()], specifying that
+/// local [XRSpace] and the space to which you wish to convert:
+/// [thePose = xrFrame.getPose(localSpace, baseSpace);
+/// ]
+///  The pose for a viewer (or camera) is represented by the
+/// [XRViewerPose] subclass of . This is obtained using
+/// [XRFrame.getViewerPose()] instead of [getPose()], specifying a
+/// reference space which has been adjusted to position and orient
+/// the node to provide the desired viewing position and angle:
+/// [viewerPose = xrFrame.getViewerPose(adjReferenceSpace);
+/// ]
+///  Here, [adjReferenceSpace] is a reference space which has been
+/// updated using the base frame of reference for the frame and any
+/// adjustments needed to position the viewer based on movement or
+/// rotation which is being supplied from a source other than the XR
+/// device, such as keyboard or mouse inputs.
+///  See the article Movement, orientation, and motion for further
+/// details and an example with thorough explanations of what's going
+/// on.
 @JS()
 @staticInterop
 class XRPose {
@@ -382,6 +646,28 @@ extension PropsXRPose on XRPose {
   bool get emulatedPosition => js_util.getProperty(this, 'emulatedPosition');
 }
 
+///  The WebXR Device API interface represents the pose (the position
+/// and orientation) of a viewer's point of view on the scene. Each
+/// can have multiple views to represent, for example, the slight
+/// separation between the left and right eye.
+///  This view can represent anything from the point-of-view of a
+/// user's XR headset to the viewpoint represented by a player's
+/// movement of an avatar using mouse and keyboard, presented on the
+/// screen, to a virtual camera capturing the scene for a spectator.
+///
+///
+///
+///    XRPose
+///
+///
+///
+///
+///
+///
+///
+///    XRViewerPose
+///
+///
 @JS()
 @staticInterop
 class XRViewerPose implements XRPose {
@@ -396,6 +682,14 @@ enum XRHandedness { none, left, right }
 
 enum XRTargetRayMode { gaze, trackedPointer, screen }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API's interface describes a single source of
+/// control input which is part of the user's WebXR-compatible
+/// virtual or augmented reality system. The device is specific to
+/// the platform being used, but provides the direction in which it
+/// is being aimed and optionally may generate events if the user
+/// triggers performs actions using the device.
 @JS()
 @staticInterop
 class XRInputSource {
@@ -414,6 +708,16 @@ extension PropsXRInputSource on XRInputSource {
   Gamepad? get gamepad => js_util.getProperty(this, 'gamepad');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface represents a live list of WebXR input sources, and
+/// is used as the return value of the [XRSession] property
+/// [inputSources]. Each entry is an [XRInputSource] representing one
+/// input device connected to the WebXR system.
+///  In addition to being able to access the input sources in the
+/// list using standard array notation (that is, with index numbers
+/// inside square brackets), methods are available to allow the use
+/// of iterators and the [forEach()] method is also available.
 @JS()
 @staticInterop
 class XRInputSourceArray extends JsArray<XRInputSource> {
@@ -424,6 +728,28 @@ extension PropsXRInputSourceArray on XRInputSourceArray {
   int get length => js_util.getProperty(this, 'length');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebXR Device API is the base class for
+/// WebXR layer types. It inherits methods from [EventTarget].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+@experimental
 @JS()
 @staticInterop
 class XRLayer implements EventTarget {
@@ -476,6 +802,43 @@ extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebXR Device API provides a linkage between
+/// the WebXR device (or simulated XR device, in the case of an
+/// inline session) and a WebGL context used to render the scene for
+/// display on the device. In particular, it provides access to the
+/// WebGL framebuffer and viewport to ease access to the context.
+///  Although is currently the only type of framebuffer layer
+/// supported by WebGL, it's entirely possible that future updates to
+/// the WebXR specification may allow for other layer types and
+/// corresponding image sources.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRWebGLLayer
+///
+///
+@experimental
 @JS()
 @staticInterop
 class XRWebGLLayer implements XRLayer {
@@ -501,6 +864,24 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
       .callMethod(XRWebGLLayer, 'getNativeFramebufferScaleFactor', [session]);
 }
 
+///  The WebXR Device API's interface describes an event which
+/// indicates the change of the state of an [XRSession]. These events
+/// occur, for example, when the session ends or the visibility of
+/// its context changes.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    XRSessionEvent
+///
+///
 @JS()
 @staticInterop
 class XRSessionEvent implements Event {
@@ -525,6 +906,29 @@ extension PropsXRSessionEventInit on XRSessionEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API's interface describes an event which has
+/// occurred on a WebXR user input device such as a hand controller,
+/// gaze tracking system, or motion tracking system. More
+/// specifically, they represent a change in the state of an
+/// [XRInputSource].
+///  To learn more about handling inputs in a WebXR project, see the
+/// article Inputs and input sources.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    XRInputSourceEvent
+///
+///
 @JS()
 @staticInterop
 class XRInputSourceEvent implements Event {
@@ -557,6 +961,25 @@ extension PropsXRInputSourceEventInit on XRInputSourceEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API interface is used to represent the
+/// [inputsourceschange] event sent to an [XRSession] when the set of
+/// available WebXR input controllers changes.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    XRInputSourcesChangeEvent
+///
+///
 @JS()
 @staticInterop
 class XRInputSourcesChangeEvent implements Event {
@@ -597,6 +1020,25 @@ extension PropsXRInputSourcesChangeEventInit on XRInputSourcesChangeEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The WebXR Device API interface represents an event sent to an
+/// [XRReferenceSpace]. Currently, the only event that uses this type
+/// is the [reset] event.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    XRReferenceSpaceEvent
+///
+///
 @JS()
 @staticInterop
 class XRReferenceSpaceEvent implements Event {
@@ -691,6 +1133,35 @@ extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface defines the object returned by calling
+/// [navigator.permissions.query()] for the [xr] permission name; it
+/// indicates whether or not the app or site has permission to use
+/// WebXR, and may be monitored over time for changes to that
+/// permissions tate.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    PermissionStatus
+///
+///
+///
+///
+///
+///
+///
+///    XRPermissionStatus
+///
+///
 @JS()
 @staticInterop
 class XRPermissionStatus implements PermissionStatus {

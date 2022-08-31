@@ -41,6 +41,9 @@ enum XRHandJoint {
   pinkyFingerTip
 }
 
+///  The interface is pair iterator (an ordered map) with the key
+/// being the hand joints and the value being an [XRJointSpace].
+///  is returned by [XRInputSource.hand].
 @JS()
 @staticInterop
 class XRHand extends JsArray<XRJointSpace> {
@@ -55,6 +58,30 @@ extension PropsXRHand on XRHand {
       js_util.callMethod(this, 'get', [key.name]);
 }
 
+///  The interface is an [XRSpace] and represents the position and
+/// orientation of an [XRHand] joint.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRSpace
+///
+///
+///
+///
+///
+///
+///
+///    XRJointSpace
+///
+///
 @JS()
 @staticInterop
 class XRJointSpace implements XRSpace {
@@ -66,6 +93,22 @@ extension PropsXRJointSpace on XRJointSpace {
       XRHandJoint.values.byName(js_util.getProperty(this, 'jointName'));
 }
 
+///  The interface is an [XRPose] with additional information about
+/// the size of the skeleton joint it represents.
+///
+///
+///
+///    XRPose
+///
+///
+///
+///
+///
+///
+///
+///    XRJointPose
+///
+///
 @JS()
 @staticInterop
 class XRJointPose implements XRPose {

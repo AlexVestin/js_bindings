@@ -10,6 +10,7 @@ library shape_detection_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -92,6 +93,14 @@ extension PropsLandmark on Landmark {
 
 enum LandmarkType { mouth, eye, nose }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the [Barcode Detection API] allows detection of
+/// linear and two dimensional barcodes in images.
+@experimental
 @JS()
 @staticInterop
 class BarcodeDetector {

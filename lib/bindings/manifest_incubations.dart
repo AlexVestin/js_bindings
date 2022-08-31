@@ -10,9 +10,36 @@ library manifest_incubations;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Non-standard: This feature is non-standard and is not
+/// on a standards track. Do not use it on production sites facing
+/// the Web: it will not work for every user. There may also be large
+/// incompatibilities between implementations and the behavior may
+/// change in the future.
+///  The is the interface of the [beforeinstallprompt] event fired at
+/// the [Window] object before a user is prompted to "install" a
+/// website to a home screen on mobile.
+/// This interface inherits from the [Event] interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    BeforeInstallPromptEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BeforeInstallPromptEvent implements Event {
@@ -43,3 +70,25 @@ extension PropsPromptResponseObject on PromptResponseObject {
 }
 
 enum AppBannerPromptOutcome { accepted, dismissed }
+
+@JS()
+@staticInterop
+class LaunchParams {
+  external LaunchParams();
+}
+
+extension PropsLaunchParams on LaunchParams {
+  String? get targetURL => js_util.getProperty(this, 'targetURL');
+  Iterable<FileSystemHandle> get files => js_util.getProperty(this, 'files');
+}
+
+@JS()
+@staticInterop
+class LaunchQueue {
+  external LaunchQueue();
+}
+
+extension PropsLaunchQueue on LaunchQueue {
+  void setConsumer(LaunchConsumer consumer) =>
+      js_util.callMethod(this, 'setConsumer', [allowInterop(consumer)]);
+}

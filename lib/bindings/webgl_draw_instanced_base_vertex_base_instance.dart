@@ -21,12 +21,12 @@ class WEBGLDrawInstancedBaseVertexBaseInstance {
 
 extension PropsWEBGLDrawInstancedBaseVertexBaseInstance
     on WEBGLDrawInstancedBaseVertexBaseInstance {
-  Object drawArraysInstancedBaseInstanceWEBGL(int mode, int first, int count,
+  void drawArraysInstancedBaseInstanceWEBGL(int mode, int first, int count,
           int instanceCount, int baseInstance) =>
       js_util.callMethod(this, 'drawArraysInstancedBaseInstanceWEBGL',
           [mode, first, count, instanceCount, baseInstance]);
 
-  Object drawElementsInstancedBaseVertexBaseInstanceWEBGL(
+  void drawElementsInstancedBaseVertexBaseInstanceWEBGL(
           int mode,
           int count,
           int type,

@@ -13,6 +13,21 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface represents an object able to obtain the position
+/// of the device programmatically. It gives Web content access to
+/// the location of the device. This allows a website or app to offer
+/// customized results based on the user's location.
+///  An object with this interface is obtained using the
+/// [navigator.geolocation] property implemented by the [Navigator]
+/// object.
+///
+///   Note: For security reasons, when a web page tries to access
+/// location information, the user is notified and asked to grant
+/// permission. Be aware that each browser has its own policies and
+/// methods for requesting this permission.
+///
 @JS()
 @staticInterop
 class Geolocation {
@@ -20,7 +35,7 @@ class Geolocation {
 }
 
 extension PropsGeolocation on Geolocation {
-  Object getCurrentPosition(PositionCallback successCallback,
+  void getCurrentPosition(PositionCallback successCallback,
           [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
       js_util.callMethod(this, 'getCurrentPosition', [
         allowInterop(successCallback),
@@ -36,7 +51,7 @@ extension PropsGeolocation on Geolocation {
         options
       ]);
 
-  Object clearWatch(int watchId) =>
+  void clearWatch(int watchId) =>
       js_util.callMethod(this, 'clearWatch', [watchId]);
 }
 
@@ -68,6 +83,13 @@ extension PropsPositionOptions on PositionOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface represents the position of the concerned device at
+/// a given time. The position, represented by a
+/// [GeolocationCoordinates] object, comprehends the 2D position of
+/// the device, on a spheroid representing the Earth, but also its
+/// altitude and its speed.
 @JS()
 @staticInterop
 class GeolocationPosition {
@@ -79,6 +101,11 @@ extension PropsGeolocationPosition on GeolocationPosition {
   int get timestamp => js_util.getProperty(this, 'timestamp');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface represents the position and altitude of the device
+/// on Earth, as well as the accuracy with which these properties are
+/// calculated.
 @JS()
 @staticInterop
 class GeolocationCoordinates {
@@ -95,6 +122,10 @@ extension PropsGeolocationCoordinates on GeolocationCoordinates {
   double? get speed => js_util.getProperty(this, 'speed');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface represents the reason of an error occurring when
+/// using the geolocating device.
 @JS()
 @staticInterop
 class GeolocationPositionError {

@@ -62,7 +62,7 @@ class SFrameTransform implements GenericTransformStream {
 }
 
 extension PropsSFrameTransform on SFrameTransform {
-  Future<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
+  Future<void> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'setEncryptionKey', [key, keyID]));
 
@@ -276,10 +276,10 @@ extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
   ReadableStream get readable => js_util.getProperty(this, 'readable');
   WritableStream get writable => js_util.getProperty(this, 'writable');
   dynamic get options => js_util.getProperty(this, 'options');
-  Future<Object> generateKeyFrame([Iterable<String>? rids]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
+  Future<int> generateKeyFrame([String? rid]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rid]));
 
-  Future<Object> sendKeyFrameRequest() => js_util
+  Future<void> sendKeyFrameRequest() => js_util
       .promiseToFuture(js_util.callMethod(this, 'sendKeyFrameRequest', []));
 }
 

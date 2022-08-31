@@ -46,6 +46,22 @@ extension PropsPropertyDefinition on PropertyDefinition {
   }
 }
 
+///  The interface of the CSS_Properties_and_Values_API represents a
+/// single CSS [@property] rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSPropertyRule
+///
+///
 @JS()
 @staticInterop
 class CSSPropertyRule implements CSSRule {

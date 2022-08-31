@@ -17,6 +17,24 @@ enum ReadyState { closed, open, ended }
 
 enum EndOfStreamError { network, decode }
 
+///  The interface of the Media Source Extensions API represents a
+/// source of media data for an [HTMLMediaElement] object. A object
+/// can be attached to a [HTMLMediaElement] to be played in the user
+/// agent.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaSource
+///
+///
 @JS()
 @staticInterop
 class MediaSource implements EventTarget {
@@ -24,6 +42,7 @@ class MediaSource implements EventTarget {
 }
 
 extension PropsMediaSource on MediaSource {
+  MediaSourceHandle get handle => js_util.getProperty(this, 'handle');
   SourceBufferList get sourceBuffers =>
       js_util.getProperty(this, 'sourceBuffers');
   SourceBufferList get activeSourceBuffers =>
@@ -59,24 +78,47 @@ extension PropsMediaSource on MediaSource {
   SourceBuffer addSourceBuffer(String type) =>
       js_util.callMethod(this, 'addSourceBuffer', [type]);
 
-  Object removeSourceBuffer(SourceBuffer sourceBuffer) =>
+  void removeSourceBuffer(SourceBuffer sourceBuffer) =>
       js_util.callMethod(this, 'removeSourceBuffer', [sourceBuffer]);
 
-  Object endOfStream([EndOfStreamError? error]) =>
+  void endOfStream([EndOfStreamError? error]) =>
       js_util.callMethod(this, 'endOfStream', [error?.name]);
 
-  Object setLiveSeekableRange(double start, double end) =>
+  void setLiveSeekableRange(double start, double end) =>
       js_util.callMethod(this, 'setLiveSeekableRange', [start, end]);
 
-  Object clearLiveSeekableRange() =>
+  void clearLiveSeekableRange() =>
       js_util.callMethod(this, 'clearLiveSeekableRange', []);
 
   static bool isTypeSupported(String type) =>
       js_util.callMethod(MediaSource, 'isTypeSupported', [type]);
 }
 
+@JS()
+@staticInterop
+class MediaSourceHandle {
+  external MediaSourceHandle();
+}
+
 enum AppendMode { segments, sequence }
 
+///  The interface represents a chunk of media to be passed into an
+/// [HTMLMediaElement] and played, via a [MediaSource] object. This
+/// can be made up of one or several media segments.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SourceBuffer
+///
+///
 @JS()
 @staticInterop
 class SourceBuffer implements EventTarget {
@@ -139,18 +181,39 @@ extension PropsSourceBuffer on SourceBuffer {
     js_util.setProperty(this, 'onabort', newValue);
   }
 
-  Object appendBuffer(dynamic data) =>
+  void appendBuffer(dynamic data) =>
       js_util.callMethod(this, 'appendBuffer', [data]);
 
-  Object abort() => js_util.callMethod(this, 'abort', []);
+  void abort() => js_util.callMethod(this, 'abort', []);
 
-  Object changeType(String type) =>
+  void changeType(String type) =>
       js_util.callMethod(this, 'changeType', [type]);
 
-  Object remove(double start, /* double | NaN */ dynamic end) =>
+  void remove(double start, /* double | NaN */ dynamic end) =>
       js_util.callMethod(this, 'remove', [start, end]);
 }
 
+///  The interface represents a simple container list for multiple
+/// [SourceBuffer] objects.
+///  The source buffer list containing the [SourceBuffer]s appended
+/// to a particular [MediaSource] can be retrieved using the
+/// [MediaSource.sourceBuffers] property.
+///  The individual source buffers can be accessed using the array
+/// operator [[]].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SourceBufferList
+///
+///
 @JS()
 @staticInterop
 class SourceBufferList implements EventTarget {

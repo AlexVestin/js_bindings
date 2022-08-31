@@ -1,7 +1,7 @@
 # Generating the files
 
 ## Requisites
- - Your system must have `yarn` installed
+ - Your system must have `yarn` installed, and node version 16+
  - Access to the internet as files are downloaded on the fly
 
 ## There are basically two steps  

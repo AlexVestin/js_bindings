@@ -6,7 +6,7 @@
 
 @JS('window')
 @staticInterop
-library wasm_js_api_1;
+library wasm_js_api_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
@@ -222,7 +222,7 @@ extension PropsTable on Table {
 
   @JS('set')
   @staticInterop
-  Object mSet(int index, [dynamic value]) =>
+  void mSet(int index, [dynamic value]) =>
       js_util.callMethod(this, 'set', [index, value]);
 
   int get length => js_util.getProperty(this, 'length');

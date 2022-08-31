@@ -10,6 +10,7 @@ library content_index;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -76,6 +77,12 @@ extension PropsContentDescription on ContentDescription {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Content Index API allows developers to
+/// register their offline enabled content with the browser.
+@experimental
 @JS()
 @staticInterop
 class ContentIndex {
@@ -83,10 +90,10 @@ class ContentIndex {
 }
 
 extension PropsContentIndex on ContentIndex {
-  Future<Object> add(ContentDescription description) =>
+  Future<void> add(ContentDescription description) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'add', [description]));
 
-  Future<Object> delete(String id) =>
+  Future<void> delete(String id) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [id]));
 
   Future<Iterable<ContentDescription>> getAll() =>
@@ -107,6 +114,40 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the content index defines the object used to
+/// represent the [contentdelete] event.
+///  This event is sent to the global scope of a [ServiceWorker]. It
+/// contains the id of the indexed content to be removed.
+///  The [contentdelete] event is only fired when the deletion
+/// happens due to interaction with the browser's built-in user
+/// interface. It is not fired when the [ContentIndex.delete] method
+/// is called.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    ContentIndexEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {

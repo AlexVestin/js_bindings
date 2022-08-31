@@ -20,7 +20,7 @@ class AnimationWorkletGlobalScope implements WorkletGlobalScope {
 }
 
 extension PropsAnimationWorkletGlobalScope on AnimationWorkletGlobalScope {
-  Object registerAnimator(
+  void registerAnimator(
           String name, AnimatorInstanceConstructor animatorCtor) =>
       js_util.callMethod(
           this, 'registerAnimator', [name, allowInterop(animatorCtor)]);

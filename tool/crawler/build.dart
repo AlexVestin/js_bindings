@@ -17,7 +17,10 @@ final urls = [];
 
 Future<void> main() async {
   // clones the MDN repo locally
-  //await cloneMDN();
+  if(!await Directory('./mdn').exists()) {
+    await cloneMDN();
+  }
+  
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
   await cloneIDLs();
   // merge ed and tr IDLs into /merged
@@ -117,7 +120,10 @@ Future<void> cloneIDLs() async {
   print('Will clone IDLs now. Exclduing dirs $dirs');
 
   for (final dir in dirs) {
-    await Directory('../webIDL/$dir').delete(recursive: true);
+    final d = Directory('../webIDL/$dir');
+    if (await d.exists()) {
+      await d.delete(recursive: true);
+    }
   }
 
   print('Fetching $w3cTreeUrl');

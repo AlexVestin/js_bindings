@@ -118,6 +118,10 @@ extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
   }
 }
 
+///  The interface of the EncryptedMediaExtensions API provides
+/// access to a Key System for decryption and/or a content protection
+/// provider. You can request an instance of this object using the
+/// [Navigator.requestMediaKeySystemAccess()] method.
 @JS()
 @staticInterop
 class MediaKeySystemAccess {
@@ -135,6 +139,9 @@ extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
 
 enum MediaKeySessionType { temporary, persistentLicense }
 
+///  The interface of EncryptedMediaExtensions API represents a set
+/// of keys that an associated [HTMLMediaElement] can use for
+/// decryption of media data during playback.
 @JS()
 @staticInterop
 class MediaKeys {
@@ -159,6 +166,23 @@ enum MediaKeySessionClosedReason {
   resourceEvicted
 }
 
+///  The interface of the EncryptedMediaExtensions API represents a
+/// context for message exchange with a content decryption module
+/// (CDM).
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaKeySession
+///
+///
 @JS()
 @staticInterop
 class MediaKeySession implements EventTarget {
@@ -184,23 +208,25 @@ extension PropsMediaKeySession on MediaKeySession {
     js_util.setProperty(this, 'onmessage', newValue);
   }
 
-  Future<Object> generateRequest(String initDataType, dynamic initData) =>
+  Future<void> generateRequest(String initDataType, dynamic initData) =>
       js_util.promiseToFuture(js_util
           .callMethod(this, 'generateRequest', [initDataType, initData]));
 
   Future<bool> load(String sessionId) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'load', [sessionId]));
 
-  Future<Object> update(dynamic response) =>
+  Future<void> update(dynamic response) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'update', [response]));
 
-  Future<Object> close() =>
+  Future<void> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  Future<Object> remove() =>
+  Future<void> remove() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'remove', []));
 }
 
+///  The interface of the EncryptedMediaExtensions API is a read-only
+/// map of media key statuses by key IDs.
 @JS()
 @staticInterop
 class MediaKeyStatusMap extends JsArray<MediaKeyStatus> {
@@ -234,6 +260,23 @@ enum MediaKeyMessageType {
   individualizationRequest
 }
 
+///  The interface of the EncryptedMediaExtensions API contains the
+/// content and related data when the content decryption module
+/// generates a message for the session.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    MediaKeyMessageEvent
+///
+///
 @JS()
 @staticInterop
 class MediaKeyMessageEvent implements Event {

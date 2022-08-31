@@ -23,6 +23,31 @@ enum PositionAlignSetting { lineLeft, center, lineRight, auto }
 
 enum AlignSetting { start, center, end, left, right }
 
+///  The interface—part of the API for handling WebVTT (text tracks
+/// on media presentations)—describes and controls the text track
+/// associated with a particular [<track>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    TextTrackCue
+///
+///
+///
+///
+///
+///
+///
+///    VTTCue
+///
+///
 @JS()
 @staticInterop
 class VTTCue implements TextTrackCue {
@@ -91,6 +116,9 @@ extension PropsVTTCue on VTTCue {
 
 enum ScrollSetting { empty, up }
 
+///  The interface—part of the API for handling WebVTT (text tracks
+/// on media presentations)—describes a portion of the video to
+/// render a [VTTCue] onto.
 @JS()
 @staticInterop
 class VTTRegion {

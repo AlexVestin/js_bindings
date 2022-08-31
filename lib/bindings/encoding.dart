@@ -60,6 +60,12 @@ extension PropsTextDecodeOptions on TextDecodeOptions {
   }
 }
 
+///  The interface represents a decoder for a specific text encoding,
+/// such as [UTF-8], [ISO-8859-2], [KOI8-R], [GBK], etc. A decoder
+/// takes a stream of bytes as input and emits a stream of code
+/// points.
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
@@ -101,6 +107,10 @@ extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
   }
 }
 
+///  The interface takes a stream of code points as input and emits a
+/// stream of UTF-8 bytes.
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class TextEncoder implements TextEncoderCommon {
@@ -116,6 +126,9 @@ extension PropsTextEncoder on TextEncoder {
       js_util.callMethod(this, 'encodeInto', [source, destination]);
 }
 
+///  The interface of the Encoding API converts a stream of text in a
+/// binary encoding, such as UTF-8 etc., to a stream of strings. It
+/// is the streaming equivalent of [TextDecoder].
 @JS()
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
@@ -123,6 +136,9 @@ class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
       [String? label = 'utf-8', TextDecoderOptions? options]);
 }
 
+///  The interface of the Encoding API converts a stream of strings
+/// into bytes in the UTF-8 encoding. It is the streaming equivalent
+/// of [TextEncoder].
 @JS()
 @staticInterop
 class TextEncoderStream implements TextEncoderCommon, GenericTransformStream {

@@ -25,13 +25,13 @@ extension PropsGroupEffect on GroupEffect {
   AnimationEffect? get lastChild => js_util.getProperty(this, 'lastChild');
   dynamic clone() => js_util.callMethod(this, 'clone', []);
 
-  Object prepend(
+  void prepend(
           [AnimationEffect? effects1,
           AnimationEffect? effects2,
           AnimationEffect? effects3]) =>
       js_util.callMethod(this, 'prepend', [effects1, effects2, effects3]);
 
-  Object append(
+  void append(
           [AnimationEffect? effects1,
           AnimationEffect? effects2,
           AnimationEffect? effects3]) =>
@@ -61,6 +61,24 @@ extension PropsSequenceEffect on SequenceEffect {
 
 enum IterationCompositeOperation { replace, accumulate }
 
+///  The AnimationPlaybackEvent interface of the Web Animations API
+/// represents animation events.
+///  As animations play, they report changes to their [playState]
+/// through animation events.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    AnimationPlaybackEvent
+///
+///
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {

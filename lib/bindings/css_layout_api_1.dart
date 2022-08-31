@@ -20,7 +20,7 @@ class LayoutWorkletGlobalScope implements WorkletGlobalScope {
 }
 
 extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
-  Object registerLayout(String name, VoidFunction layoutCtor) => js_util
+  void registerLayout(String name, VoidFunction layoutCtor) => js_util
       .callMethod(this, 'registerLayout', [name, allowInterop(layoutCtor)]);
 }
 

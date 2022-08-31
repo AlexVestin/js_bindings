@@ -35,6 +35,20 @@ extension PropsResizeObserverOptions on ResizeObserverOptions {
   }
 }
 
+///  The interface reports changes to the dimensions of an
+/// [Element]'s content or border box, or the bounding box of an
+/// [SVGElement].
+///
+///   Note: The content box is the box in which content can be
+/// placed, meaning the border box minus the padding and border
+/// width. The border box encompasses the content, padding, and
+/// border. See The box model for further explanation.
+///
+///   avoids infinite callback loops and cyclic dependencies that are
+/// often created when resizing via a callback function. It does this
+/// by only processing elements deeper in the DOM in subsequent
+/// frames. Implementations should, if they follow the specification,
+/// invoke resize events before paint and after layout.
 @JS()
 @staticInterop
 class ResizeObserver {
@@ -42,15 +56,19 @@ class ResizeObserver {
 }
 
 extension PropsResizeObserver on ResizeObserver {
-  Object observe(Element target, [ResizeObserverOptions? options]) =>
+  void observe(Element target, [ResizeObserverOptions? options]) =>
       js_util.callMethod(this, 'observe', [target, options]);
 
-  Object unobserve(Element target) =>
+  void unobserve(Element target) =>
       js_util.callMethod(this, 'unobserve', [target]);
 
-  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
+  void disconnect() => js_util.callMethod(this, 'disconnect', []);
 }
 
+///  The interface represents the object passed to the
+/// [ResizeObserver()] constructor's callback function, which allows
+/// you to access the new dimensions of the [Element] or [SVGElement]
+/// being observed.
 @JS()
 @staticInterop
 class ResizeObserverEntry {
@@ -68,6 +86,13 @@ extension PropsResizeObserverEntry on ResizeObserverEntry {
       js_util.getProperty(this, 'devicePixelContentBoxSize');
 }
 
+///  The interface of the [Resize Observer API] is used by the
+/// [ResizeObserverEntry] interface to access the box sizing
+/// properties of the element being observed.
+///
+///   Note: In multi-column layout, which is a fragmented context,
+/// the sizing returned by will be the size of the first column.
+///
 @JS()
 @staticInterop
 class ResizeObserverSize {

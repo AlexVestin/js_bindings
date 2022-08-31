@@ -13,6 +13,22 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents events providing information related to
+/// transitions.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    TransitionEvent
+///
+///
 @JS()
 @staticInterop
 class TransitionEvent implements Event {

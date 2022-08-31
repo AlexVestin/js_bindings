@@ -10,6 +10,7 @@ library payment_handler;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -51,11 +52,11 @@ extension PropsPaymentInstruments on PaymentInstruments {
 
   @JS('set')
   @staticInterop
-  Future<Object> mSet(String instrumentKey, PaymentInstrument details) =>
+  Future<void> mSet(String instrumentKey, PaymentInstrument details) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'set', [instrumentKey, details]));
 
-  Future<Object> clear() =>
+  Future<void> clear() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'clear', []));
 }
 
@@ -124,7 +125,7 @@ extension PropsCanMakePaymentEvent on CanMakePaymentEvent {
       js_util.getProperty(this, 'paymentRequestOrigin');
   Iterable<PaymentMethodData> get methodData =>
       js_util.getProperty(this, 'methodData');
-  Object respondWith(Future<bool> canMakePaymentResponse) =>
+  void respondWith(Future<bool> canMakePaymentResponse) =>
       js_util.callMethod(this, 'respondWith', [canMakePaymentResponse]);
 }
 
@@ -192,6 +193,34 @@ extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Payment Request API is the object passed to
+/// a payment handler when a [PaymentRequest] is made.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    PaymentRequestEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
@@ -217,7 +246,7 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'changePaymentMethod', [methodName, methodDetails]));
 
-  Object respondWith(Future<PaymentHandlerResponse> handlerResponsePromise) =>
+  void respondWith(Future<PaymentHandlerResponse> handlerResponsePromise) =>
       js_util.callMethod(this, 'respondWith', [handlerResponsePromise]);
 }
 

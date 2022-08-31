@@ -10,9 +10,32 @@ library sanitizer_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///
+///   The interface of the [HTML Sanitizer API] provides methods to
+/// sanitize untrusted strings of HTML, [Document] and
+/// [DocumentFragment] objects.
+///   After sanitization, unwanted elements or attributes are
+/// removed, and the returned objects can safely be inserted into a
+/// document's DOM.
+///
+///  A object is also used by the [Element.setHTML()] method to parse
+/// and sanitize a string of HTML, and immediately insert it into an
+/// element.
+///
+///   The default configuration strips out XSS-relevant input by
+/// default, including [<script>] tags, custom elements, and
+/// comments.
+///  This configuration may be customized using constructor options.
+///
+@experimental
 @JS()
 @staticInterop
 class Sanitizer {
@@ -58,6 +81,7 @@ class SanitizerConfig {
       dynamic allowAttributes,
       dynamic dropAttributes,
       required bool allowCustomElements,
+      required bool allowUnknownMarkup,
       required bool allowComments});
 }
 
@@ -94,6 +118,12 @@ extension PropsSanitizerConfig on SanitizerConfig {
       js_util.getProperty(this, 'allowCustomElements');
   set allowCustomElements(bool newValue) {
     js_util.setProperty(this, 'allowCustomElements', newValue);
+  }
+
+  bool get allowUnknownMarkup =>
+      js_util.getProperty(this, 'allowUnknownMarkup');
+  set allowUnknownMarkup(bool newValue) {
+    js_util.setProperty(this, 'allowUnknownMarkup', newValue);
   }
 
   bool get allowComments => js_util.getProperty(this, 'allowComments');

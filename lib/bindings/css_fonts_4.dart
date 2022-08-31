@@ -13,6 +13,21 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+/// The interface represents an [@font-face] at-rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSFontFaceRule
+///
+///
 @JS()
 @staticInterop
 class CSSFontFaceRule implements CSSRule {
@@ -56,7 +71,7 @@ class CSSFontFeatureValuesMap extends JsMap<Iterable<int>, String> {
 extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
   @JS('set')
   @staticInterop
-  Object mSet(String featureValueName, dynamic values) =>
+  void mSet(String featureValueName, dynamic values) =>
       js_util.callMethod(this, 'set', [featureValueName, values]);
 }
 

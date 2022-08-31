@@ -13,6 +13,10 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  A object is returned by the
+/// [HTMLVideoElement.getVideoPlaybackQuality()] method and contains
+/// metrics that can be used to determine the playback quality of a
+/// video.
 @JS()
 @staticInterop
 class VideoPlaybackQuality {

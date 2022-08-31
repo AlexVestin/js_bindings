@@ -23,6 +23,12 @@ extension PropsNavigatorStorage on NavigatorStorage {
   StorageManager get storage => js_util.getProperty(this, 'storage');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Storage API provides an interface for
+/// managing persistence permissions and estimating available
+/// storage. You can get a reference to this interface using either
+/// [navigator.storage] or [WorkerNavigator.storage].
 @JS()
 @staticInterop
 class StorageManager {

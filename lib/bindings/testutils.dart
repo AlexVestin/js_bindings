@@ -20,6 +20,6 @@ class TestUtils {
 }
 
 extension PropsTestUtils on TestUtils {
-  Future<Object> gc() =>
+  Future<void> gc() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'gc', []));
 }

@@ -28,6 +28,11 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
   }
 }
 
+///  The interface of the Push API provides a way to receive
+/// notifications from third-party servers as well as request URLs
+/// for push notifications.
+///  This interface is accessed via the
+/// [ServiceWorkerRegistration.pushManager] property.
 @JS()
 @staticInterop
 class PushManager {
@@ -49,6 +54,11 @@ extension PropsPushManager on PushManager {
           js_util.callMethod(this, 'permissionState', [options]));
 }
 
+///  The interface of the Push API represents the options associated
+/// with a push subscription.
+///  The read-only object is returned by calling
+/// [PushSubscription.options] on a [PushSubscription]. This
+/// interface has no constructor of its own.
 @JS()
 @staticInterop
 class PushSubscriptionOptions {
@@ -82,6 +92,9 @@ extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
   }
 }
 
+///  The interface of the Push API provides a subscription's URL
+/// endpoint and allows unsubscribing from a push service.
+/// An instance of this interface can be serialized.
 @JS()
 @staticInterop
 class PushSubscription {
@@ -128,6 +141,14 @@ extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
 
 enum PushEncryptionKeyName { p256dh, auth }
 
+///  The interface of the Push API provides methods which let you
+/// retrieve the push data sent by a server in various formats.
+///  Unlike the similar methods in the Fetch API, which only allow
+/// the method to be invoked once, these methods can be called
+/// multiple times.
+///  Messages received through the Push API are sent encrypted by
+/// push services and then automatically decrypted by browsers before
+/// they are made accessible through the methods of the interface.
 @JS()
 @staticInterop
 class PushMessageData {
@@ -144,6 +165,32 @@ extension PropsPushMessageData on PushMessageData {
   String text() => js_util.callMethod(this, 'text', []);
 }
 
+///  The interface of the Push API represents a push message that has
+/// been received. This event is sent to the global scope of a
+/// [ServiceWorker]. It contains the information sent from an
+/// application server to a [PushSubscription].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    PushEvent
+///
+///
 @JS()
 @staticInterop
 class PushEvent implements ExtendableEvent {

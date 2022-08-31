@@ -20,7 +20,7 @@ class PaintWorkletGlobalScope implements WorkletGlobalScope {
 }
 
 extension PropsPaintWorkletGlobalScope on PaintWorkletGlobalScope {
-  Object registerPaint(String name, VoidFunction paintCtor) => js_util
+  void registerPaint(String name, VoidFunction paintCtor) => js_util
       .callMethod(this, 'registerPaint', [name, allowInterop(paintCtor)]);
 
   /* double | NaN */ dynamic get devicePixelRatio =>

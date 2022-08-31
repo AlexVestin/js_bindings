@@ -91,6 +91,10 @@ extension PropsFontFaceDescriptors on FontFaceDescriptors {
 
 enum FontFaceLoadStatus { unloaded, loading, loaded, error }
 
+///  The interface represents a single usable font face. It allows
+/// control of the source of the font face, being a URL to an
+/// external resource, or a buffer; it also allows control of when
+/// the font face is loaded and its current status.
 @JS()
 @staticInterop
 class FontFace {
@@ -237,6 +241,22 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
   }
 }
 
+///  The interface of the CSS Font Loading API is fired whenever a
+/// [FontFaceSet] loads.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    FontFaceSetLoadEvent
+///
+///
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
@@ -250,6 +270,23 @@ extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {
 
 enum FontFaceSetLoadStatus { loading, loaded }
 
+///  The interface of the CSS Font Loading API manages the loading of
+/// font-faces and querying of their download status. It is available
+/// as [Document.fonts].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    FontFaceSet
+///
+///
 @JS()
 @staticInterop
 class FontFaceSet implements EventTarget {
@@ -261,7 +298,7 @@ extension PropsFontFaceSet on FontFaceSet {
 
   bool delete(FontFace font) => js_util.callMethod(this, 'delete', [font]);
 
-  Object clear() => js_util.callMethod(this, 'clear', []);
+  void clear() => js_util.callMethod(this, 'clear', []);
 
   EventHandlerNonNull? get onloading => js_util.getProperty(this, 'onloading');
   set onloading(EventHandlerNonNull? newValue) {

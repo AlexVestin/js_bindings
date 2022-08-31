@@ -50,7 +50,7 @@ extension PropsInkPresenter on InkPresenter {
       js_util.getProperty(this, 'presentationArea');
   int get expectedImprovement =>
       js_util.getProperty(this, 'expectedImprovement');
-  Object updateInkTrailStartPoint(PointerEvent event, InkTrailStyle style) =>
+  void updateInkTrailStartPoint(PointerEvent event, InkTrailStyle style) =>
       js_util.callMethod(this, 'updateInkTrailStartPoint', [event, style]);
 }
 

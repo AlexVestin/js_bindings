@@ -20,6 +20,8 @@ class CSPViolationReportBody implements ReportBody {
 }
 
 extension PropsCSPViolationReportBody on CSPViolationReportBody {
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
+
   String get documentURL => js_util.getProperty(this, 'documentURL');
   String? get referrer => js_util.getProperty(this, 'referrer');
   String? get blockedURL => js_util.getProperty(this, 'blockedURL');
@@ -38,6 +40,23 @@ extension PropsCSPViolationReportBody on CSPViolationReportBody {
 
 enum SecurityPolicyViolationEventDisposition { enforce, report }
 
+///  The interface inherits from [Event], and represents the event
+/// object of an event sent on a document or worker when its content
+/// security policy is violated.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    SecurityPolicyViolationEvent
+///
+///
 @JS()
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {

@@ -30,10 +30,10 @@ extension PropsHTMLPortalElement on HTMLPortalElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
-  Future<Object> activate([PortalActivateOptions? options]) =>
+  Future<void> activate([PortalActivateOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'activate', [options]));
 
-  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
+  void postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -69,7 +69,7 @@ class PortalHost implements EventTarget {
 }
 
 extension PropsPortalHost on PortalHost {
-  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
+  void postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');

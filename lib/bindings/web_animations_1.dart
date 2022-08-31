@@ -13,6 +13,12 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Web Animations API represents the timeline
+/// of an animation. This interface exists to define timeline
+/// features (inherited by [DocumentTimeline] and future timeline
+/// types) and is not itself directly used by developers. Anywhere
+/// you see , you should use [DocumentTimeline] or any other timeline
+/// type instead.
 @JS()
 @staticInterop
 class AnimationTimeline {
@@ -21,8 +27,6 @@ class AnimationTimeline {
 
 extension PropsAnimationTimeline on AnimationTimeline {
   double? get currentTime => js_util.getProperty(this, 'currentTime');
-  TimelinePhase get phase =>
-      TimelinePhase.values.byName(js_util.getProperty(this, 'phase'));
   dynamic get duration => js_util.getProperty(this, 'duration');
   Animation play([AnimationEffect? effect]) =>
       js_util.callMethod(this, 'play', [effect]);
@@ -42,12 +46,46 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
   }
 }
 
+///  The interface of the Web Animations API represents animation
+/// timelines, including the default document timeline (accessed via
+/// [Document.timeline]).
+///
+///
+///
+///    AnimationTimeline
+///
+///
+///
+///
+///
+///
+///
+///    DocumentTimeline
+///
+///
 @JS()
 @staticInterop
 class DocumentTimeline implements AnimationTimeline {
   external DocumentTimeline([DocumentTimelineOptions? options]);
 }
 
+///  The interface of the Web Animations API represents a single
+/// animation player and provides playback controls and a timeline
+/// for an animation node or source.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Animation
+///
+///
 @JS()
 @staticInterop
 class Animation implements EventTarget {
@@ -99,22 +137,22 @@ extension PropsAnimation on Animation {
     js_util.setProperty(this, 'onremove', newValue);
   }
 
-  Object cancel() => js_util.callMethod(this, 'cancel', []);
+  void cancel() => js_util.callMethod(this, 'cancel', []);
 
-  Object finish() => js_util.callMethod(this, 'finish', []);
+  void finish() => js_util.callMethod(this, 'finish', []);
 
-  Object play() => js_util.callMethod(this, 'play', []);
+  void play() => js_util.callMethod(this, 'play', []);
 
-  Object pause() => js_util.callMethod(this, 'pause', []);
+  void pause() => js_util.callMethod(this, 'pause', []);
 
-  Object updatePlaybackRate(double playbackRate) =>
+  void updatePlaybackRate(double playbackRate) =>
       js_util.callMethod(this, 'updatePlaybackRate', [playbackRate]);
 
-  Object reverse() => js_util.callMethod(this, 'reverse', []);
+  void reverse() => js_util.callMethod(this, 'reverse', []);
 
-  Object persist() => js_util.callMethod(this, 'persist', []);
+  void persist() => js_util.callMethod(this, 'persist', []);
 
-  Object commitStyles() => js_util.callMethod(this, 'commitStyles', []);
+  void commitStyles() => js_util.callMethod(this, 'commitStyles', []);
 
   dynamic get startTime => js_util.getProperty(this, 'startTime');
   set startTime(dynamic newValue) {
@@ -131,8 +169,10 @@ enum AnimationPlayState { idle, running, paused, finished }
 
 enum AnimationReplaceState { active, removed, persisted }
 
-enum TimelinePhase { inactive, before, active, after }
-
+///  The interface of the Web Animations API defines current and
+/// future animation effects like [KeyframeEffect], which can be
+/// passed to [Animation] objects for playing, and [KeyframeEffect]
+/// (which is used by CSS Animations and Transitions).
 @JS()
 @staticInterop
 class AnimationEffect {
@@ -145,32 +185,32 @@ extension PropsAnimationEffect on AnimationEffect {
   ComputedEffectTiming getComputedTiming() =>
       js_util.callMethod(this, 'getComputedTiming', []);
 
-  Object updateTiming([OptionalEffectTiming? timing]) =>
+  void updateTiming([OptionalEffectTiming? timing]) =>
       js_util.callMethod(this, 'updateTiming', [timing]);
 
   GroupEffect? get parent => js_util.getProperty(this, 'parent');
   AnimationEffect? get previousSibling =>
       js_util.getProperty(this, 'previousSibling');
   AnimationEffect? get nextSibling => js_util.getProperty(this, 'nextSibling');
-  Object before(
+  void before(
           [AnimationEffect? effects1,
           AnimationEffect? effects2,
           AnimationEffect? effects3]) =>
       js_util.callMethod(this, 'before', [effects1, effects2, effects3]);
 
-  Object after(
+  void after(
           [AnimationEffect? effects1,
           AnimationEffect? effects2,
           AnimationEffect? effects3]) =>
       js_util.callMethod(this, 'after', [effects1, effects2, effects3]);
 
-  Object replace(
+  void replace(
           [AnimationEffect? effects1,
           AnimationEffect? effects2,
           AnimationEffect? effects3]) =>
       js_util.callMethod(this, 'replace', [effects1, effects2, effects3]);
 
-  Object remove() => js_util.callMethod(this, 'remove', []);
+  void remove() => js_util.callMethod(this, 'remove', []);
 }
 
 @anonymous
@@ -178,25 +218,19 @@ extension PropsAnimationEffect on AnimationEffect {
 @staticInterop
 class EffectTiming {
   external factory EffectTiming._(
-      {double? delay = 0,
-      double? endDelay = 0,
-      String? fill,
+      {String? fill,
       double? iterationStart = 0.0,
       /* double | NaN */ dynamic iterations = 1.0,
       String? direction,
       String? easing = 'linear'});
 
   factory EffectTiming(
-          {double? delay = 0,
-          double? endDelay = 0,
-          FillMode? fill = FillMode.auto,
+          {FillMode? fill = FillMode.auto,
           double? iterationStart = 0.0,
           /* double | NaN */ dynamic iterations = 1.0,
           PlaybackDirection? direction = PlaybackDirection.normal,
           String? easing = 'linear'}) =>
       EffectTiming._(
-          delay: delay,
-          endDelay: endDelay,
           fill: fill?.name,
           iterationStart: iterationStart,
           iterations: iterations,
@@ -205,16 +239,6 @@ class EffectTiming {
 }
 
 extension PropsEffectTiming on EffectTiming {
-  double get delay => js_util.getProperty(this, 'delay');
-  set delay(double newValue) {
-    js_util.setProperty(this, 'delay', newValue);
-  }
-
-  double get endDelay => js_util.getProperty(this, 'endDelay');
-  set endDelay(double newValue) {
-    js_util.setProperty(this, 'endDelay', newValue);
-  }
-
   FillMode get fill =>
       FillMode.values.byName(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
@@ -348,6 +372,23 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
   }
 }
 
+///  The interface of the Web Animations API lets us create sets of
+/// animatable properties and values, called keyframes. These can
+/// then be played using the [Animation()] constructor.
+///
+///
+///
+///    AnimationEffect
+///
+///
+///
+///
+///
+///
+///
+///    KeyframeEffect
+///
+///
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
@@ -375,7 +416,7 @@ extension PropsKeyframeEffect on KeyframeEffect {
   Iterable<dynamic> getKeyframes() =>
       js_util.callMethod(this, 'getKeyframes', []);
 
-  Object setKeyframes(dynamic keyframes) =>
+  void setKeyframes(dynamic keyframes) =>
       js_util.callMethod(this, 'setKeyframes', [keyframes]);
 
   IterationCompositeOperation get iterationComposite =>

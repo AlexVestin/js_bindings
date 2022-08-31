@@ -13,6 +13,46 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface provides access to the properties of [<filter>]
+/// elements, as well as methods to manipulate them.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFilterElement
+///
+///
 @JS()
 @staticInterop
 class SVGFilterElement implements SVGElement, SVGURIReference {
@@ -45,6 +85,45 @@ extension PropsSVGFilterPrimitiveStandardAttributes
   SVGAnimatedString get result => js_util.getProperty(this, 'result');
 }
 
+/// The interface corresponds to the [<feBlend>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEBlendElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEBlendElement
@@ -109,6 +188,45 @@ extension PropsSVGFEBlendElement on SVGFEBlendElement {
   SVGAnimatedEnumeration get mode => js_util.getProperty(this, 'mode');
 }
 
+/// The interface corresponds to the [<feColorMatrix>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEColorMatrixElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEColorMatrixElement
@@ -137,6 +255,46 @@ extension PropsSVGFEColorMatrixElement on SVGFEColorMatrixElement {
   SVGAnimatedNumberList get values => js_util.getProperty(this, 'values');
 }
 
+///  The interface corresponds to the [<feComponentTransfer>]
+/// element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEComponentTransferElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEComponentTransferElement
@@ -148,6 +306,46 @@ extension PropsSVGFEComponentTransferElement on SVGFEComponentTransferElement {
   SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
+///  The interface defines a base interface used by the component
+/// transfer function interfaces.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGComponentTransferFunctionElement
+///
+///
 @JS()
 @staticInterop
 class SVGComponentTransferFunctionElement implements SVGElement {
@@ -184,30 +382,257 @@ extension PropsSVGComponentTransferFunctionElement
   SVGAnimatedNumber get offset => js_util.getProperty(this, 'offset');
 }
 
+/// The interface corresponds to the [<feFuncR>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGComponentTransferFunctionElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEFuncRElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {
   external SVGFEFuncRElement();
 }
 
+/// The interface corresponds to the [<feFuncG>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGComponentTransferFunctionElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEFuncGElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {
   external SVGFEFuncGElement();
 }
 
+/// The interface corresponds to the [<feFuncB>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGComponentTransferFunctionElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEFuncBElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {
   external SVGFEFuncBElement();
 }
 
+/// The interface corresponds to the [<feFuncA>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGComponentTransferFunctionElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEFuncAElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {
   external SVGFEFuncAElement();
 }
 
+/// The interface corresponds to the [<feComposite>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFECompositeElement
+///
+///
 @JS()
 @staticInterop
 class SVGFECompositeElement
@@ -248,6 +673,45 @@ extension PropsSVGFECompositeElement on SVGFECompositeElement {
   SVGAnimatedNumber get k4 => js_util.getProperty(this, 'k4');
 }
 
+/// The interface corresponds to the [<feConvolveMatrix>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEConvolveMatrixElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEConvolveMatrixElement
@@ -286,6 +750,45 @@ extension PropsSVGFEConvolveMatrixElement on SVGFEConvolveMatrixElement {
       js_util.getProperty(this, 'preserveAlpha');
 }
 
+/// The interface corresponds to the [<feDiffuseLighting>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEDiffuseLightingElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEDiffuseLightingElement
@@ -305,6 +808,45 @@ extension PropsSVGFEDiffuseLightingElement on SVGFEDiffuseLightingElement {
       js_util.getProperty(this, 'kernelUnitLengthY');
 }
 
+/// The interface corresponds to the [<feDistantLight>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEDistantLightElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEDistantLightElement implements SVGElement {
@@ -316,6 +858,45 @@ extension PropsSVGFEDistantLightElement on SVGFEDistantLightElement {
   SVGAnimatedNumber get elevation => js_util.getProperty(this, 'elevation');
 }
 
+/// The interface corresponds to the [<fePointLight>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEPointLightElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEPointLightElement implements SVGElement {
@@ -328,6 +909,45 @@ extension PropsSVGFEPointLightElement on SVGFEPointLightElement {
   SVGAnimatedNumber get z => js_util.getProperty(this, 'z');
 }
 
+/// The interface corresponds to the [<feSpotLight>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFESpotLightElement
+///
+///
 @JS()
 @staticInterop
 class SVGFESpotLightElement implements SVGElement {
@@ -347,6 +967,45 @@ extension PropsSVGFESpotLightElement on SVGFESpotLightElement {
       js_util.getProperty(this, 'limitingConeAngle');
 }
 
+/// The interface corresponds to the [<feDisplacementMap>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEDisplacementMapElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEDisplacementMapElement
@@ -379,6 +1038,45 @@ extension PropsSVGFEDisplacementMapElement on SVGFEDisplacementMapElement {
       js_util.getProperty(this, 'yChannelSelector');
 }
 
+/// The interface corresponds to the [<feDropShadow>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEDropShadowElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEDropShadowElement
@@ -394,10 +1092,49 @@ extension PropsSVGFEDropShadowElement on SVGFEDropShadowElement {
       js_util.getProperty(this, 'stdDeviationX');
   SVGAnimatedNumber get stdDeviationY =>
       js_util.getProperty(this, 'stdDeviationY');
-  Object setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
+  void setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
       .callMethod(this, 'setStdDeviation', [stdDeviationX, stdDeviationY]);
 }
 
+/// The interface corresponds to the [<feFlood>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEFloodElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEFloodElement
@@ -405,6 +1142,45 @@ class SVGFEFloodElement
   external SVGFEFloodElement();
 }
 
+/// The interface corresponds to the [<feGaussianBlur>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEGaussianBlurElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEGaussianBlurElement
@@ -431,10 +1207,49 @@ extension PropsSVGFEGaussianBlurElement on SVGFEGaussianBlurElement {
   SVGAnimatedNumber get stdDeviationY =>
       js_util.getProperty(this, 'stdDeviationY');
   SVGAnimatedEnumeration get edgeMode => js_util.getProperty(this, 'edgeMode');
-  Object setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
+  void setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
       .callMethod(this, 'setStdDeviation', [stdDeviationX, stdDeviationY]);
 }
 
+/// The interface corresponds to the [<feImage>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEImageElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEImageElement
@@ -451,6 +1266,45 @@ extension PropsSVGFEImageElement on SVGFEImageElement {
   SVGAnimatedString get crossOrigin => js_util.getProperty(this, 'crossOrigin');
 }
 
+/// The interface corresponds to the [<feMerge>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEMergeElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEMergeElement
@@ -458,6 +1312,45 @@ class SVGFEMergeElement
   external SVGFEMergeElement();
 }
 
+/// The interface corresponds to the [<feMergeNode>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEMergeNodeElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEMergeNodeElement implements SVGElement {
@@ -468,6 +1361,45 @@ extension PropsSVGFEMergeNodeElement on SVGFEMergeNodeElement {
   SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
+/// The interface corresponds to the [<feMorphology>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEMorphologyElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEMorphologyElement
@@ -493,6 +1425,45 @@ extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
   SVGAnimatedNumber get radiusY => js_util.getProperty(this, 'radiusY');
 }
 
+/// The interface corresponds to the [<feOffset>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFEOffsetElement
+///
+///
 @JS()
 @staticInterop
 class SVGFEOffsetElement
@@ -506,6 +1477,45 @@ extension PropsSVGFEOffsetElement on SVGFEOffsetElement {
   SVGAnimatedNumber get dy => js_util.getProperty(this, 'dy');
 }
 
+/// The interface corresponds to the [<feSpecularLighting>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFESpecularLightingElement
+///
+///
 @JS()
 @staticInterop
 class SVGFESpecularLightingElement
@@ -527,6 +1537,45 @@ extension PropsSVGFESpecularLightingElement on SVGFESpecularLightingElement {
       js_util.getProperty(this, 'kernelUnitLengthY');
 }
 
+/// The interface corresponds to the [<feTile>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFETileElement
+///
+///
 @JS()
 @staticInterop
 class SVGFETileElement
@@ -538,6 +1587,45 @@ extension PropsSVGFETileElement on SVGFETileElement {
   SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
+/// The interface corresponds to the [<feTurbulence>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGFETurbulenceElement
+///
+///
 @JS()
 @staticInterop
 class SVGFETurbulenceElement

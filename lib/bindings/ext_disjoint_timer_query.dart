@@ -19,6 +19,23 @@ class WebGLTimerQueryEXT implements WebGLObject {
   external WebGLTimerQueryEXT();
 }
 
+///  The EXT_disjoint_timer_query extension is part of the WebGL API
+/// and provides a way to measure the duration of a set of GL
+/// commands, without stalling the rendering pipeline.
+///  WebGL extensions are available using the
+/// [WebGLRenderingContext.getExtension()] method. For more
+/// information, see also Using Extensions in the WebGL tutorial.
+///
+///   Note: This extension should be available in WebGL1 contexts
+/// only. [EXT_disjoint_timer_query_webgl2] is available in WebGL 2
+/// contexts .
+///
+///    In WebGL 2, the [getQueryObject] was renamed to
+/// [getQueryParameter].
+///    In WebGL 2, other queries (such as occlusion queries and
+/// primitive queries) are possible using [WebGLQuery] objects.
+///
+///
 @JS('EXT_disjoint_timer_query')
 @staticInterop
 class EXTDisjointTimerQuery {
@@ -50,19 +67,19 @@ extension PropsEXTDisjointTimerQuery on EXTDisjointTimerQuery {
   WebGLTimerQueryEXT? createQueryEXT() =>
       js_util.callMethod(this, 'createQueryEXT', []);
 
-  Object deleteQueryEXT(WebGLTimerQueryEXT? query) =>
+  void deleteQueryEXT(WebGLTimerQueryEXT? query) =>
       js_util.callMethod(this, 'deleteQueryEXT', [query]);
 
   bool isQueryEXT(WebGLTimerQueryEXT? query) =>
       js_util.callMethod(this, 'isQueryEXT', [query]);
 
-  Object beginQueryEXT(int target, WebGLTimerQueryEXT query) =>
+  void beginQueryEXT(int target, WebGLTimerQueryEXT query) =>
       js_util.callMethod(this, 'beginQueryEXT', [target, query]);
 
-  Object endQueryEXT(int target) =>
+  void endQueryEXT(int target) =>
       js_util.callMethod(this, 'endQueryEXT', [target]);
 
-  Object queryCounterEXT(WebGLTimerQueryEXT query, int target) =>
+  void queryCounterEXT(WebGLTimerQueryEXT query, int target) =>
       js_util.callMethod(this, 'queryCounterEXT', [query, target]);
 
   dynamic getQueryEXT(int target, int pname) =>

@@ -10,9 +10,17 @@ library css_typed_om_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API is the base
+/// class of all CSS values accessible through the Typed OM API. An
+/// instance of this class may be used anywhere a string is expected.
+@experimental
 @JS()
 @staticInterop
 class CSSStyleValue {
@@ -29,6 +37,14 @@ extension PropsCSSStyleValue on CSSStyleValue {
       js_util.callMethod(CSSStyleValue, 'parseAll', [property, cssText]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API provides a
+/// read-only representation of a CSS declaration block that is an
+/// alternative to [CSSStyleDeclaration]. Retrieve an instance of
+/// this interface using [Element.computedStyleMap()].
+@experimental
 @JS()
 @staticInterop
 class StylePropertyMapReadOnly extends JsArray<Iterable<CSSStyleValue>> {
@@ -48,6 +64,27 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
   int get size => js_util.getProperty(this, 'size');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API provides a
+/// representation of a CSS declaration block that is an alternative
+/// to [CSSStyleDeclaration].
+///
+///
+///
+///    StylePropertyMapReadOnly
+///
+///
+///
+///
+///
+///
+///
+///    StylePropertyMap
+///
+///
+@experimental
 @JS()
 @staticInterop
 class StylePropertyMap implements StylePropertyMapReadOnly {
@@ -57,20 +94,43 @@ class StylePropertyMap implements StylePropertyMapReadOnly {
 extension PropsStylePropertyMap on StylePropertyMap {
   @JS('set')
   @staticInterop
-  Object mSet(String property,
+  void mSet(String property,
           [dynamic values1, dynamic values2, dynamic values3]) =>
       js_util.callMethod(this, 'set', [property, values1, values2, values3]);
 
-  Object append(String property,
+  void append(String property,
           [dynamic values1, dynamic values2, dynamic values3]) =>
       js_util.callMethod(this, 'append', [property, values1, values2, values3]);
 
-  Object delete(String property) =>
+  void delete(String property) =>
       js_util.callMethod(this, 'delete', [property]);
 
-  Object clear() => js_util.callMethod(this, 'clear', []);
+  void clear() => js_util.callMethod(this, 'clear', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents property values that reference custom properties. It
+/// consists of a list of string fragments and variable references.
+///  Custom properties are represented by and [var()] references are
+/// represented using [CSSVariableReferenceValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSUnparsedValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSUnparsedValue implements CSSStyleValue {
@@ -81,6 +141,15 @@ extension PropsCSSUnparsedValue on CSSUnparsedValue {
   int get length => js_util.getProperty(this, 'length');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// allows you to create a custom name for a built-in CSS value. This
+/// object functionality is sometimes called a "CSS variable" and
+/// serves the same purpose as the [var()] function. The custom name
+/// must begin with two dashes.
+@experimental
 @JS()
 @staticInterop
 class CSSVariableReferenceValue {
@@ -97,6 +166,29 @@ extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
   CSSUnparsedValue? get fallback => js_util.getProperty(this, 'fallback');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API creates an
+/// object to represent CSS keywords and other identifiers.
+///  The interface instance name is a stringifier meaning that when
+/// used anywhere a string is expected it will return the value of
+/// [CSSKeyword.value].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSKeywordValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSKeywordValue implements CSSStyleValue {
@@ -197,6 +289,26 @@ extension PropsCSSNumericType on CSSNumericType {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API represents
+/// operations that all numeric values can perform.
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSNumericValue implements CSSStyleValue {
@@ -236,6 +348,35 @@ extension PropsCSSNumericValue on CSSNumericValue {
       js_util.callMethod(CSSNumericValue, 'parse', [cssText]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents values that contain a single unit type. For example,
+/// "42px" would be represented by a [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSUnitValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSUnitValue implements CSSNumericValue {
@@ -251,6 +392,34 @@ extension PropsCSSUnitValue on CSSUnitValue {
   String get unit => js_util.getProperty(this, 'unit');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model a
+/// base class for classes representing complex numeric values.
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathValue implements CSSNumericValue {
@@ -264,6 +433,46 @@ extension PropsCSSMathValue on CSSMathValue {
       CSSMathOperator.values.byName(js_util.getProperty(this, 'operator'));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the result obtained by calling [add()], [sub()], or
+/// [toSum()] on [CSSNumericValue].
+///  A CSSMathSum is the object type returned when the
+/// [StylePropertyMapReadOnly.get()] method is used on a CSS property
+/// whose value is created with a [calc()] function.
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathSum
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathSum implements CSSMathValue {
@@ -274,6 +483,44 @@ extension PropsCSSMathSum on CSSMathSum {
   CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the result obtained by calling [add()], [sub()], or
+/// [toSum()] on [CSSNumericValue]. It inherits properties and
+/// methods from its parent [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathProduct
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathProduct implements CSSMathValue {
@@ -284,6 +531,43 @@ extension PropsCSSMathProduct on CSSMathProduct {
   CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// negates the value passed into it. It inherits properties and
+/// methods from its parent [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathNegate
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathNegate implements CSSMathValue {
@@ -294,6 +578,44 @@ extension PropsCSSMathNegate on CSSMathNegate {
   CSSNumericValue get value => js_util.getProperty(this, 'value');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents a CSS [calc()] used as [calc(1 / <value>).] It
+/// inherits properties and methods from its parent
+/// [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathInvert
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathInvert implements CSSMathValue {
@@ -304,6 +626,43 @@ extension PropsCSSMathInvert on CSSMathInvert {
   CSSNumericValue get value => js_util.getProperty(this, 'value');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the CSS [min()] function. It inherits properties and
+/// methods from its parent [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathMin
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathMin implements CSSMathValue {
@@ -314,6 +673,43 @@ extension PropsCSSMathMin on CSSMathMin {
   CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the CSS [max()] function. It inherits properties and
+/// methods from its parent [CSSNumericValue].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSNumericValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSMathMax
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMathMax implements CSSMathValue {
@@ -336,6 +732,12 @@ extension PropsCSSMathClamp on CSSMathClamp {
   CSSNumericValue get upper => js_util.getProperty(this, 'upper');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// contains a list of [CSSNumericValue] objects.
+@experimental
 @JS()
 @staticInterop
 class CSSNumericArray extends JsArray<CSSNumericValue> {
@@ -348,6 +750,27 @@ extension PropsCSSNumericArray on CSSNumericArray {
 
 enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents [transform-list] values as used by the CSS [transform]
+/// property.
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSTransformValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSTransformValue implements CSSStyleValue {
@@ -360,6 +783,12 @@ extension PropsCSSTransformValue on CSSTransformValue {
   DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model is
+/// part of the [CSSTransformValue] interface.
+@experimental
 @JS()
 @staticInterop
 class CSSTransformComponent {
@@ -377,6 +806,28 @@ extension PropsCSSTransformComponent on CSSTransformComponent {
   DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the translate() value of the individual [transform]
+/// property in CSS. It inherits properties and methods from its
+/// parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSTranslate
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSTranslate implements CSSTransformComponent {
@@ -401,6 +852,28 @@ extension PropsCSSTranslate on CSSTranslate {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the rotate value of the individual [transform]
+/// property in CSS. It inherits properties and methods from its
+/// parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSRotate
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSRotate implements CSSTransformComponent {
@@ -429,6 +902,28 @@ extension PropsCSSRotate on CSSRotate {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the scale() and scale3d() values of the individual
+/// [transform] property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSScale
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSScale implements CSSTransformComponent {
@@ -452,6 +947,27 @@ extension PropsCSSScale on CSSScale {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model is
+/// part of the [CSSTransformValue] interface. It represents the
+/// [skew()] value of the individual [transform] property in CSS.
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSSkew
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSSkew implements CSSTransformComponent {
@@ -470,6 +986,28 @@ extension PropsCSSSkew on CSSSkew {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the [skewX()] value of the individual [transform]
+/// property in CSS. It inherits properties and methods from its
+/// parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSSkewX
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSSkewX implements CSSTransformComponent {
@@ -483,6 +1021,28 @@ extension PropsCSSSkewX on CSSSkewX {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the [skewY()] value of the individual [transform]
+/// property in CSS. It inherits properties and methods from its
+/// parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSSkewY
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSSkewY implements CSSTransformComponent {
@@ -496,6 +1056,28 @@ extension PropsCSSSkewY on CSSSkewY {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the perspective() value of the individual [transform]
+/// property in CSS. It inherits properties and methods from its
+/// parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSPerspective
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSPerspective implements CSSTransformComponent {
@@ -509,6 +1091,28 @@ extension PropsCSSPerspective on CSSPerspective {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS_Object_Model#css_typed_object_model
+/// represents the matrix() and matrix3d() values of the individual
+/// [transform] property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
+///
+///
+///
+///    CSSTransformComponent
+///
+///
+///
+///
+///
+///
+///
+///    CSSMatrixComponent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSMatrixComponent implements CSSTransformComponent {
@@ -537,6 +1141,30 @@ extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Typed Object Model API represents
+/// values for properties that take an image, for example
+/// [background-image], [list-style-image], or [border-image-source].
+///  The CSSImageValue object represents an [<image>] that involves a
+/// URL, such as [url()] or [image()], but not [linear-gradient()] or
+/// [element()].
+///
+///
+///
+///    CSSStyleValue
+///
+///
+///
+///
+///
+///
+///
+///    CSSImageValue
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSImageValue implements CSSStyleValue {
@@ -550,10 +1178,6 @@ class CSSColorValue implements CSSStyleValue {
 }
 
 extension PropsCSSColorValue on CSSColorValue {
-  dynamic get colorSpace => js_util.getProperty(this, 'colorSpace');
-  CSSColorValue to(dynamic colorSpace) =>
-      js_util.callMethod(this, 'to', [colorSpace]);
-
   static dynamic parse(String cssText) =>
       js_util.callMethod(CSSColorValue, 'parse', [cssText]);
 }

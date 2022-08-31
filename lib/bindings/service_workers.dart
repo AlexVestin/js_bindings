@@ -6,13 +6,42 @@
 
 @JS('window')
 @staticInterop
-library service_workers_1;
+library service_workers;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Service Worker API provides a reference to
+/// a service worker. Multiple browsing contexts (e.g. pages,
+/// workers, etc.) can be associated with the same service worker,
+/// each through a unique object.
+///  A object is available in the [ServiceWorkerRegistration.active]
+/// property, and the [ServiceWorkerContainer.controller] property —
+/// this is a service worker that has been activated and is
+/// controlling the page (the service worker has been successfully
+/// registered, and the controlled page has been reloaded.)
+///  The interface is dispatched a set of lifecycle events —
+/// [install] and [activate] — and functional events including
+/// [fetch]. A object has an associated [ServiceWorker.state],
+/// related to its lifecycle.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    ServiceWorker
+///
+///
 @JS()
 @staticInterop
 class ServiceWorker implements EventTarget, AbstractWorker {
@@ -23,7 +52,7 @@ extension PropsServiceWorker on ServiceWorker {
   String get scriptURL => js_util.getProperty(this, 'scriptURL');
   ServiceWorkerState get state =>
       ServiceWorkerState.values.byName(js_util.getProperty(this, 'state'));
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   EventHandlerNonNull? get onstatechange =>
@@ -42,6 +71,30 @@ enum ServiceWorkerState {
   redundant
 }
 
+///  The interface of the Service Worker API represents the service
+/// worker registration. You register a service worker to control one
+/// or more pages that share the same origin.
+///  The lifetime of a service worker registration is beyond that of
+/// the objects that represent them within the lifetime of their
+/// corresponding service worker clients. The browser maintains a
+/// persistent list of active objects.
+///
+///  Note: This feature is available in Web Workers.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    ServiceWorkerRegistration
+///
+///
 @JS()
 @staticInterop
 class ServiceWorkerRegistration implements EventTarget {
@@ -58,7 +111,7 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ServiceWorkerUpdateViaCache get updateViaCache =>
       ServiceWorkerUpdateViaCache.values
           .byName(js_util.getProperty(this, 'updateViaCache'));
-  Future<Object> update() =>
+  Future<void> update() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'update', []));
 
   Future<bool> unregister() =>
@@ -70,16 +123,17 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
     js_util.setProperty(this, 'onupdatefound', newValue);
   }
 
-  ContentIndex get index => js_util.getProperty(this, 'index');
+  CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
+  BackgroundFetchManager get backgroundFetch =>
+      js_util.getProperty(this, 'backgroundFetch');
+  @JS('sync')
+  @staticInterop
+  SyncManager get mSync => js_util.getProperty(this, 'sync');
   PeriodicSyncManager get periodicSync =>
       js_util.getProperty(this, 'periodicSync');
   PaymentManager get paymentManager =>
       js_util.getProperty(this, 'paymentManager');
-  CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
-  BackgroundFetchManager get backgroundFetch =>
-      js_util.getProperty(this, 'backgroundFetch');
-  Future<Object> showNotification(String title,
-          [NotificationOptions? options]) =>
+  Future<void> showNotification(String title, [NotificationOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showNotification', [title, options]));
 
@@ -88,14 +142,36 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getNotifications', [filter]));
 
+  ContentIndex get index => js_util.getProperty(this, 'index');
   PushManager get pushManager => js_util.getProperty(this, 'pushManager');
-  @JS('sync')
-  @staticInterop
-  SyncManager get mSync => js_util.getProperty(this, 'sync');
 }
 
 enum ServiceWorkerUpdateViaCache { imports, all, none }
 
+///  The interface of the Service Worker API provides an object
+/// representing the service worker as an overall unit in the network
+/// ecosystem, including facilities to register, unregister and
+/// update service workers, and access the state of service workers
+/// and their registrations.
+///  Most importantly, it exposes the
+/// [ServiceWorkerContainer.register()] method used to register
+/// service workers, and the [ServiceWorkerContainer.controller]
+/// property used to determine whether or not the current page is
+/// actively controlled.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    ServiceWorkerContainer
+///
+///
 @JS()
 @staticInterop
 class ServiceWorkerContainer implements EventTarget {
@@ -117,7 +193,7 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   Future<Iterable<ServiceWorkerRegistration>> getRegistrations() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getRegistrations', []));
 
-  Object startMessages() => js_util.callMethod(this, 'startMessages', []);
+  void startMessages() => js_util.callMethod(this, 'startMessages', []);
 
   EventHandlerNonNull? get oncontrollerchange =>
       js_util.getProperty(this, 'oncontrollerchange');
@@ -173,6 +249,15 @@ extension PropsRegistrationOptions on RegistrationOptions {
   }
 }
 
+///  The interface of the Service Worker API provides methods for
+/// managing the preloading of resources in parallel with service
+/// worker bootup.
+///
+///   If supported, an object of this type is returned by
+/// [ServiceWorkerRegistration.navigationPreload].
+///   The result of a preload fetch request is waited on using the
+/// promise returned by [FetchEvent.preloadResponse].
+///
 @JS()
 @staticInterop
 class NavigationPreloadManager {
@@ -180,13 +265,13 @@ class NavigationPreloadManager {
 }
 
 extension PropsNavigationPreloadManager on NavigationPreloadManager {
-  Future<Object> enable() =>
+  Future<void> enable() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'enable', []));
 
-  Future<Object> disable() =>
+  Future<void> disable() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'disable', []));
 
-  Future<Object> setHeaderValue(String value) => js_util
+  Future<void> setHeaderValue(String value) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setHeaderValue', [value]));
 
   Future<NavigationPreloadState> getState() =>
@@ -213,6 +298,43 @@ extension PropsNavigationPreloadState on NavigationPreloadState {
   }
 }
 
+///  The interface of the Service Worker API represents the global
+/// execution context of a service worker.
+///  Developers should keep in mind that the ServiceWorker state is
+/// not persisted across the termination/restart cycle, so each event
+/// handler should assume it's being invoked with a bare, default
+/// global state.
+///  Once successfully registered, a service worker can and will be
+/// terminated when idle to conserve memory and processor power. An
+/// active service worker is automatically restarted to respond to
+/// events, such as [onfetch] or [onmessage].
+///  Additionally, synchronous requests are not allowed from within a
+/// service worker — only asynchronous requests, like those initiated
+/// via the [fetch()] method, can be used.
+///  This interface inherits from the [WorkerGlobalScope] interface,
+/// and its parent [EventTarget].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    WorkerGlobalScope
+///
+///
+///
+///
+///
+///
+///
+///    ServiceWorkerGlobalScope
+///
+///
 @JS()
 @staticInterop
 class ServiceWorkerGlobalScope implements WorkerGlobalScope {
@@ -224,7 +346,7 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
   ServiceWorkerRegistration get registration =>
       js_util.getProperty(this, 'registration');
   ServiceWorker get serviceWorker => js_util.getProperty(this, 'serviceWorker');
-  Future<Object> skipWaiting() =>
+  Future<void> skipWaiting() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'skipWaiting', []));
 
   EventHandlerNonNull? get oninstall => js_util.getProperty(this, 'oninstall');
@@ -252,30 +374,6 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
       js_util.getProperty(this, 'onmessageerror');
   set onmessageerror(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onmessageerror', newValue);
-  }
-
-  EventHandlerNonNull? get oncontentdelete =>
-      js_util.getProperty(this, 'oncontentdelete');
-  set oncontentdelete(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncontentdelete', newValue);
-  }
-
-  EventHandlerNonNull? get onperiodicsync =>
-      js_util.getProperty(this, 'onperiodicsync');
-  set onperiodicsync(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onperiodicsync', newValue);
-  }
-
-  EventHandlerNonNull? get oncanmakepayment =>
-      js_util.getProperty(this, 'oncanmakepayment');
-  set oncanmakepayment(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncanmakepayment', newValue);
-  }
-
-  EventHandlerNonNull? get onpaymentrequest =>
-      js_util.getProperty(this, 'onpaymentrequest');
-  set onpaymentrequest(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpaymentrequest', newValue);
   }
 
   CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
@@ -309,6 +407,29 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
     js_util.setProperty(this, 'onbackgroundfetchclick', newValue);
   }
 
+  EventHandlerNonNull? get onsync => js_util.getProperty(this, 'onsync');
+  set onsync(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsync', newValue);
+  }
+
+  EventHandlerNonNull? get onperiodicsync =>
+      js_util.getProperty(this, 'onperiodicsync');
+  set onperiodicsync(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onperiodicsync', newValue);
+  }
+
+  EventHandlerNonNull? get oncanmakepayment =>
+      js_util.getProperty(this, 'oncanmakepayment');
+  set oncanmakepayment(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncanmakepayment', newValue);
+  }
+
+  EventHandlerNonNull? get onpaymentrequest =>
+      js_util.getProperty(this, 'onpaymentrequest');
+  set onpaymentrequest(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaymentrequest', newValue);
+  }
+
   EventHandlerNonNull? get onnotificationclick =>
       js_util.getProperty(this, 'onnotificationclick');
   set onnotificationclick(EventHandlerNonNull? newValue) {
@@ -321,6 +442,12 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
     js_util.setProperty(this, 'onnotificationclose', newValue);
   }
 
+  EventHandlerNonNull? get oncontentdelete =>
+      js_util.getProperty(this, 'oncontentdelete');
+  set oncontentdelete(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncontentdelete', newValue);
+  }
+
   EventHandlerNonNull? get onpush => js_util.getProperty(this, 'onpush');
   set onpush(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onpush', newValue);
@@ -331,13 +458,13 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
   set onpushsubscriptionchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onpushsubscriptionchange', newValue);
   }
-
-  EventHandlerNonNull? get onsync => js_util.getProperty(this, 'onsync');
-  set onsync(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onsync', newValue);
-  }
 }
 
+///  The interface represents an executable context such as a
+/// [Worker], or a [SharedWorker]. [Window] clients are represented
+/// by the more-specific [WindowClient]. You can get /[WindowClient]
+/// objects from methods such as [Clients.matchAll()] and
+/// [Clients.get()].
 @JS()
 @staticInterop
 class Client {
@@ -351,13 +478,32 @@ extension PropsClient on Client {
   String get id => js_util.getProperty(this, 'id');
   ClientType get type =>
       ClientType.values.byName(js_util.getProperty(this, 'type'));
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   ClientLifecycleState get lifecycleState => ClientLifecycleState.values
       .byName(js_util.getProperty(this, 'lifecycleState'));
 }
 
+///  The interface of the ServiceWorker API represents the scope of a
+/// service worker client that is a document in a browsing context,
+/// controlled by an active worker. The service worker client
+/// independently selects and uses a service worker for its own
+/// loading and sub-resources.
+///
+///
+///
+///    Client
+///
+///
+///
+///
+///
+///
+///
+///    WindowClient
+///
+///
 @JS()
 @staticInterop
 class WindowClient implements Client {
@@ -379,6 +525,8 @@ extension PropsWindowClient on WindowClient {
 
 enum FrameType { auxiliary, topLevel, nested, none }
 
+///  The interface provides access to [Client] objects. Access it via
+/// [[self].clients] within a service worker.
 @JS()
 @staticInterop
 class Clients {
@@ -396,7 +544,7 @@ extension PropsClients on Clients {
   Future<WindowClient> openWindow(String url) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'openWindow', [url]));
 
-  Future<Object> claim() =>
+  Future<void> claim() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'claim', []));
 }
 
@@ -430,6 +578,39 @@ extension PropsClientQueryOptions on ClientQueryOptions {
 
 enum ClientType { window, worker, sharedworker, all }
 
+///  The interface extends the lifetime of the [install] and
+/// [activate] events dispatched on the global scope as part of the
+/// service worker lifecycle. This ensures that any functional events
+/// (like [FetchEvent]) are not dispatched until it upgrades database
+/// schemas and deletes the outdated cache entries.
+///  If [waitUntil()] is called outside of the handler, the browser
+/// should throw an [InvalidStateError]; note also that multiple
+/// calls will stack up, and the resulting promises will be added to
+/// the list of extend lifetime promises.
+///
+///   Note: The behavior described in the above paragraph was fixed
+/// in Firefox 43 (see bug 1180274.)
+///
+/// This interface inherits from the [Event] interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///   Note: This interface is only available when the global scope is
+/// a [ServiceWorkerGlobalScope]. It is not available when it is a
+/// [Window], or the scope of another kind of worker.
+///
 @JS()
 @staticInterop
 class ExtendableEvent implements Event {
@@ -437,7 +618,7 @@ class ExtendableEvent implements Event {
 }
 
 extension PropsExtendableEvent on ExtendableEvent {
-  Object waitUntil(Future<dynamic> f) =>
+  void waitUntil(Future<dynamic> f) =>
       js_util.callMethod(this, 'waitUntil', [f]);
 }
 
@@ -448,6 +629,33 @@ class ExtendableEventInit implements EventInit {
   external factory ExtendableEventInit();
 }
 
+///  This is the event type for [fetch] events dispatched on the
+/// service worker global scope. It contains information about the
+/// fetch, including the request and how the receiver will treat the
+/// response. It provides the [event.respondWith()] method, which
+/// allows us to provide a response to this fetch.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    FetchEvent
+///
+///
 @JS()
 @staticInterop
 class FetchEvent implements ExtendableEvent {
@@ -462,9 +670,9 @@ extension PropsFetchEvent on FetchEvent {
   String get resultingClientId =>
       js_util.getProperty(this, 'resultingClientId');
   String get replacesClientId => js_util.getProperty(this, 'replacesClientId');
-  Future<Object> get handled =>
+  Future<void> get handled =>
       js_util.promiseToFuture(js_util.getProperty(this, 'handled'));
-  Object respondWith(Future<Response> r) =>
+  void respondWith(Future<Response> r) =>
       js_util.callMethod(this, 'respondWith', [r]);
 }
 
@@ -478,7 +686,7 @@ class FetchEventInit implements ExtendableEventInit {
       String? clientId = '',
       String? resultingClientId = '',
       String? replacesClientId = '',
-      Future<Object>? handled});
+      Future<void>? handled});
 }
 
 extension PropsFetchEventInit on FetchEventInit {
@@ -509,13 +717,40 @@ extension PropsFetchEventInit on FetchEventInit {
     js_util.setProperty(this, 'replacesClientId', newValue);
   }
 
-  Future<Object> get handled =>
+  Future<void> get handled =>
       js_util.promiseToFuture(js_util.getProperty(this, 'handled'));
-  set handled(Future<Object> newValue) {
+  set handled(Future<void> newValue) {
     js_util.setProperty(this, 'handled', newValue);
   }
 }
 
+///  The interface of the Service Worker API represents the event
+/// object of a [message] event fired on a service worker (when a
+/// message is received on the [ServiceWorkerGlobalScope] from
+/// another context) — extends the lifetime of such events.
+/// This interface inherits from the [ExtendableEvent] interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableMessageEvent
+///
+///
 @JS()
 @staticInterop
 class ExtendableMessageEvent implements ExtendableEvent {
@@ -570,6 +805,40 @@ extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
   }
 }
 
+///  The interface provides a persistent storage mechanism for
+/// [Request] / [Response] object pairs that are cached in long lived
+/// memory. How long a object lives is browser dependent, but a
+/// single origin's scripts can typically rely on the presence of a
+/// previously populated object. Note that the interface is exposed
+/// to windowed scopes as well as workers. You don't have to use it
+/// in conjunction with service workers, even though it is defined in
+/// the service worker spec.
+///  An origin can have multiple, named objects. You are responsible
+/// for implementing how your script (e.g. in a [ServiceWorker])
+/// handles updates. Items in a do not get updated unless explicitly
+/// requested; they don't expire unless deleted. Use
+/// [CacheStorage.open()] to open a specific named object and then
+/// call any of the methods to maintain the .
+///  You are also responsible for periodically purging cache entries.
+/// Each browser has a hard limit on the amount of cache storage that
+/// a given origin can use. quota usage estimates are available via
+/// the [StorageManager.estimate()] method. The browser does its best
+/// to manage disk space, but it may delete the storage for an
+/// origin. The browser will generally delete all of the data for an
+/// origin or none of the data for an origin. Make sure to version
+/// caches by name and use the caches only from the version of the
+/// script that they can safely operate on. See Deleting old caches
+/// for more information.
+///
+///   Note: The key matching algorithm depends on the VARY header in
+/// the value. So matching a new key requires looking at both key and
+/// value for entries in the object.
+///  Note: The caching API doesn't honor HTTP caching headers.
+///
+///  Note: This feature is available in Web Workers
+///
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
 @JS()
 @staticInterop
 class Cache {
@@ -585,13 +854,13 @@ extension PropsCache on Cache {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'matchAll', [request, options]));
 
-  Future<Object> add(dynamic request) =>
+  Future<void> add(dynamic request) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'add', [request]));
 
-  Future<Object> addAll(Iterable<dynamic> requests) =>
+  Future<void> addAll(Iterable<dynamic> requests) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'addAll', [requests]));
 
-  Future<Object> put(dynamic request, Response response) => js_util
+  Future<void> put(dynamic request, Response response) => js_util
       .promiseToFuture(js_util.callMethod(this, 'put', [request, response]));
 
   Future<bool> delete(dynamic request, [CacheQueryOptions? options]) => js_util
@@ -630,6 +899,39 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
   }
 }
 
+/// The interface represents the storage for [Cache] objects.
+/// The interface:
+///
+///   Provides a master directory of all the named caches that can be
+/// accessed by a [ServiceWorker] or other type of worker or [window]
+/// scope (you're not limited to only using it with service workers).
+///   Maintains a mapping of string names to corresponding [Cache]
+/// objects.
+///
+/// Use [CacheStorage.open()] to obtain a [Cache] instance.
+///  Use [CacheStorage.match()] to check if a given [Request] is a
+/// key in any of the [Cache] objects that the object tracks.
+/// You can access through the global [caches] property.
+///
+///   Note: always rejects with a [SecurityError] on untrusted
+/// origins (i.e. those that aren't using HTTPS, although this
+/// definition will likely become more complex in the future.) When
+/// testing on Firefox, you can get around this by checking the
+/// Enable Service Workers over HTTP (when toolbox is open) option in
+/// the Firefox Devtools options/gear menu. Furthermore, because
+/// requires file-system access, it may be unavailable in private
+/// mode in Firefox.
+///   Note: [CacheStorage.match()] is a convenience method.
+/// Equivalent functionality to match a cache entry can be
+/// implemented by returning an array of cache names from
+/// [CacheStorage.keys()], opening each cache with
+/// [CacheStorage.open()], and matching the one you want with
+/// [Cache.match()].
+///
+///  Note: This feature is available in Web Workers
+///
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
 @JS()
 @staticInterop
 class CacheStorage {

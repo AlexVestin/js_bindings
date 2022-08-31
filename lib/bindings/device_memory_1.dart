@@ -1,6 +1,6 @@
-/// Device Memory 1
+/// Device Memory
 ///
-/// https://w3c.github.io/device-memory/
+/// https://www.w3.org/TR/device-memory/
 
 // ignore_for_file: unused_import
 

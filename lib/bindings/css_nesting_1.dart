@@ -30,6 +30,5 @@ extension PropsCSSNestingRule on CSSNestingRule {
   int insertRule(String rule, [int? index = 0]) =>
       js_util.callMethod(this, 'insertRule', [rule, index]);
 
-  Object deleteRule(int index) =>
-      js_util.callMethod(this, 'deleteRule', [index]);
+  void deleteRule(int index) => js_util.callMethod(this, 'deleteRule', [index]);
 }

@@ -63,6 +63,27 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
   }
 }
 
+///   is an abstract interface for [PerformanceEntry] objects with an
+/// [entryType] of "[mark]". Entries of this type are created by
+/// calling [performance.mark()] to add a named [double] (the mark)
+/// to the browser's performance timeline.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///
+///
+///    PerformanceMark
+///
+///
+///
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class PerformanceMark implements PerformanceEntry {
@@ -74,6 +95,27 @@ extension PropsPerformanceMark on PerformanceMark {
   dynamic get detail => js_util.getProperty(this, 'detail');
 }
 
+///   is an abstract interface for [PerformanceEntry] objects with an
+/// [entryType] of "[measure]". Entries of this type are created by
+/// calling [performance.measure()] to add a named [double] (the
+/// measure) between two marks to the browser's performance timeline.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///
+///
+///    PerformanceMeasure
+///
+///
+///
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class PerformanceMeasure implements PerformanceEntry {
