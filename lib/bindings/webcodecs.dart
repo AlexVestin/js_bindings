@@ -213,6 +213,9 @@ extension PropsVideoEncoder on VideoEncoder {
   void configure(VideoEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
+  // JsPromise<dynamic> configure(VideoEncoderConfig config) =>
+  //     js_util.callMethod(this, 'isConfigSupported', [config]);
+
   void encode(VideoFrame frame, [VideoEncoderEncodeOptions? options]) =>
       js_util.callMethod(this, 'encode', [frame, options]);
 
@@ -1039,7 +1042,7 @@ extension PropsVideoFrame on VideoFrame {
   int allocationSize([VideoFrameCopyToOptions? options]) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
-  Future<Iterable<PlaneLayout>> copyTo(dynamic destination,
+  Future<Iterable<dynamic>> copyTo(dynamic destination,
           [VideoFrameCopyToOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'copyTo', [destination, options]));
