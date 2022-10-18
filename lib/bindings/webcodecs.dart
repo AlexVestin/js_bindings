@@ -235,6 +235,9 @@ extension PropsVideoEncoder on VideoEncoder {
   void configure(VideoEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
+  // JsPromise<dynamic> configure(VideoEncoderConfig config) =>
+  //     js_util.callMethod(this, 'isConfigSupported', [config]);
+
   void encode(VideoFrame frame, [VideoEncoderEncodeOptions? options]) =>
       js_util.callMethod(this, 'encode', [frame, options]);
 
@@ -245,7 +248,7 @@ extension PropsVideoEncoder on VideoEncoder {
 
   void close() => js_util.callMethod(this, 'close', []);
 
-  static Future<VideoEncoderSupport> isConfigSupported(
+  Future<VideoEncoderSupport> isConfigSupported(
           VideoEncoderConfig config) =>
       js_util.promiseToFuture(
           js_util.callMethod(VideoEncoder, 'isConfigSupported', [config]));
@@ -565,7 +568,9 @@ class VideoEncoderConfig {
       String? alpha,
       String? scalabilityMode,
       String? bitrateMode,
-      String? latencyMode});
+      String? latencyMode,
+      dynamic avc,
+      });
 
   // factory VideoEncoderConfig(
   //         {required String codec,
@@ -632,10 +637,9 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
     js_util.setProperty(this, 'framerate', newValue);
   }
 
-  HardwareAcceleration get hardwareAcceleration => HardwareAcceleration.values
-      .byName(js_util.getProperty(this, 'hardwareAcceleration'));
-  set hardwareAcceleration(HardwareAcceleration newValue) {
-    js_util.setProperty(this, 'hardwareAcceleration', newValue.name);
+  String get hardwareAcceleration => js_util.getProperty(this, 'hardwareAcceleration');
+  set hardwareAcceleration(String newValue) {
+    js_util.setProperty(this, 'hardwareAcceleration', newValue);
   }
 
   AlphaOption get alpha =>
@@ -994,7 +998,7 @@ extension PropsVideoFrame on VideoFrame {
   int allocationSize([VideoFrameCopyToOptions? options]) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
-  Future<Iterable<PlaneLayout>> copyTo(dynamic destination,
+  Future<Iterable<dynamic>> copyTo(dynamic destination,
           [VideoFrameCopyToOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'copyTo', [destination, options]));
@@ -1165,7 +1169,7 @@ extension PropsVideoFrameBufferInit on VideoFrameBufferInit {
 @staticInterop
 class VideoFrameCopyToOptions {
   external factory VideoFrameCopyToOptions(
-      {required DOMRectInit rect, required Iterable<PlaneLayout> layout});
+      {DOMRectInit rect, Iterable<PlaneLayout> layout});
 }
 
 extension PropsVideoFrameCopyToOptions on VideoFrameCopyToOptions {
