@@ -1016,7 +1016,7 @@ enum AudioSampleFormat {
 @JS()
 @staticInterop
 class VideoFrame {
-  external factory VideoFrame(Object image, [VideoFrameInit init]);
+  external factory VideoFrame(Object image, [dynamic init]);
   // external factory VideoFrame(dynamic image, [VideoFrameBufferInit? init]);
   //
   // factory VideoFrame(dynamic image, [dynamic? init]) =>
