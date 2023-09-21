@@ -60,6 +60,8 @@ class PressureObserver {
           [PressureObserverOptions? options]) =>
       PressureObserver._(callback, options ?? undefined);
   external static Future<PermissionState> requestPermission();
+
+  external static Iterable<PressureSource> get supportedSources;
 }
 
 extension PropsPressureObserver on PressureObserver {
@@ -73,8 +75,6 @@ extension PropsPressureObserver on PressureObserver {
 
   Iterable<PressureRecord> takeRecords() =>
       js_util.callMethod(this, 'takeRecords', []);
-
-  external static Iterable<PressureSource> get supportedSources;
 }
 
 @anonymous

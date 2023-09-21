@@ -41,11 +41,11 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
 @staticInterop
 class PushManager {
   external factory PushManager();
+
+  external static Iterable<String> get supportedContentEncodings;
 }
 
 extension PropsPushManager on PushManager {
-  external static Iterable<String> get supportedContentEncodings;
-
   Future<PushSubscription> subscribe([PushSubscriptionOptionsInit? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'subscribe', [options]));
 
