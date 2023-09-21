@@ -52,6 +52,8 @@ extension PropsPerformanceEntry on PerformanceEntry {
 @staticInterop
 class PerformanceObserver {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
+
+  external static Iterable<String> get supportedEntryTypes;
 }
 
 extension PropsPerformanceObserver on PerformanceObserver {
@@ -62,8 +64,6 @@ extension PropsPerformanceObserver on PerformanceObserver {
 
   Iterable<PerformanceEntry> takeRecords() =>
       js_util.callMethod(this, 'takeRecords', []);
-
-  external static Iterable<String> get supportedEntryTypes;
 }
 
 @anonymous

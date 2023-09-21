@@ -44,13 +44,13 @@ class Notification implements EventTarget {
       Notification._(title, options ?? undefined);
   external static Future<NotificationPermission> requestPermission(
       [NotificationPermissionCallback? deprecatedCallback]);
-}
 
-extension PropsNotification on Notification {
   external static NotificationPermission get permission;
 
   external static int get maxActions;
+}
 
+extension PropsNotification on Notification {
   EventHandlerNonNull? get onclick => js_util.getProperty(this, 'onclick');
   set onclick(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onclick', newValue);

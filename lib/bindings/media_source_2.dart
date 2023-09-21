@@ -64,6 +64,8 @@ enum EndOfStreamError {
 class MediaSource implements EventTarget {
   external static bool isTypeSupported(String type);
   external factory MediaSource();
+
+  external static bool get canConstructInDedicatedWorker;
 }
 
 extension PropsMediaSource on MediaSource {
@@ -97,8 +99,6 @@ extension PropsMediaSource on MediaSource {
   set onsourceclose(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onsourceclose', newValue);
   }
-
-  external static bool get canConstructInDedicatedWorker;
 
   SourceBuffer addSourceBuffer(String type) =>
       js_util.callMethod(this, 'addSourceBuffer', [type]);
